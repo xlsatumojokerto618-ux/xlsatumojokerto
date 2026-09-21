@@ -26,7 +26,7 @@
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .card-hover:hover {
-            transform: translateY(-10px) scale(1.01);
+            transform: translateY(-8px) scale(1.01);
             box-shadow: 0 25px 30px -10px rgba(0, 45, 187, 0.18), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
@@ -75,7 +75,7 @@
                     </a>
                 </div>
 
-                <!-- Menu Desktop (Lengkap) -->
+                <!-- Menu Desktop -->
                 <div class="hidden md:flex space-x-6 items-center" data-aos="fade-down" data-aos-duration="800" data-aos-delay="100">
                     <a href="#beranda" class="text-slate-600 hover:text-[#002dbb] font-medium transition hover:-translate-y-0.5">Beranda</a>
                     <a href="#paket" class="text-slate-600 hover:text-[#002dbb] font-medium transition hover:-translate-y-0.5">Paket WiFi</a>
@@ -95,7 +95,7 @@
             </div>
         </div>
 
-        <!-- Dropdown Menu Mobile (Kini Sudah Ditambah Peta Wilayah & Testimoni) -->
+        <!-- Dropdown Menu Mobile -->
         <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-slate-100 absolute w-full shadow-2xl transition-all">
             <div class="px-6 pt-4 pb-6 space-y-2">
                 <a href="#beranda" class="mobile-link flex items-center gap-3 px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition">
@@ -419,16 +419,16 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- 4. COVERAGE AREA INTERAKTIF (CEK WILAYAH)  -->
+    <!-- 4. COVERAGE AREA INTERAKTIF (CLUSTER AREA) -->
     <!-- ========================================== -->
     <section id="coverage" class="py-24 bg-white border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12" data-aos="fade-up">
                 <span class="inline-block bg-blue-50 text-[#002dbb] px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-3">
-                    🗺️ Jangkauan Jaringan Fiber Optic
+                    🗺️ Daftar Cluster Wilayah Tercover Fiber Optic
                 </span>
-                <h2 class="text-3xl md:text-4xl font-bold text-[#002dbb] mb-4">Cek Wilayah & Cakupan Area Mojokerto</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto">Ketik atau pilih kecamatan Anda di bawah ini untuk memastikan jaringan XL Satu sudah tercover di lokasi Anda.</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-[#002dbb] mb-4">Cek Cluster & Kelurahan / Desa di Kabupaten Mojokerto</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">Pilih atau cari kecamatan di bawah ini untuk melihat rincian desa dan perumahan yang sudah tercover jaringan XL Satu.</p>
             </div>
 
             <!-- Kotak Pencarian Interaktif -->
@@ -437,106 +437,209 @@
                     <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
                         <i class="fas fa-search"></i>
                     </span>
-                    <input type="text" id="searchKecamatan" onkeyup="filterKecamatan()" placeholder="Ketik nama kecamatan di Mojokerto (cth: Sooko, Ngoro)..." class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#002dbb] text-sm font-medium shadow-sm transition">
+                    <input type="text" id="searchCluster" onkeyup="filterCluster()" placeholder="Cari kecamatan, desa, atau perumahan (cth: Sooko, Mojoanyar, Perum Puri)..." class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#002dbb] text-sm font-medium shadow-sm transition">
                 </div>
             </div>
 
-            <!-- Grid Daftar Kecamatan -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" id="kecamatanGrid" data-aos="fade-up" data-aos-delay="200">
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Mojoanyar')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Mojoanyar</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
+            <!-- Grid Kartu Cluster Per Kecamatan -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="clusterGrid" data-aos="fade-up" data-aos-delay="200">
+                
+                <!-- Kecamatan Sooko -->
+                <div class="cluster-card bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg text-[#002dbb]">Kec. Sooko</h3>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded-full">Tercover</span>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-6 list-disc list-inside">
+                            <li>Desa Gemekan</li>
+                            <li>Desa Jampirogo</li>
+                            <li>Desa Japan</li>
+                            <li>Graha Japan Asri</li>
+                            <li>Desa Klinterejo</li>
+                            <li>Desa Sambiroto</li>
+                            <li>Desa Sooko</li>
+                            <li>Wisma Sooko Indah</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Sooko')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                        Cek Lokasi Sooko
+                    </button>
                 </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Sooko')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Sooko</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
+
+                <!-- Kecamatan Puri -->
+                <div class="cluster-card bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg text-[#002dbb]">Kec. Puri</h3>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded-full">Tercover</span>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-6 list-disc list-inside">
+                            <li>Desa Banjaragung</li>
+                            <li>Desa Brayung</li>
+                            <li>Desa Kenanten</li>
+                            <li>Griya Arsy Mansion</li>
+                            <li>Desa Medali</li>
+                            <li>Desa Tambak Agung</li>
+                            <li>Dusun Sawurkembang</li>
+                            <li>Perum Puri Diamond</li>
+                            <li>Perum Wikarsa Sejahtera</li>
+                            <li>Perum Graha Permata Agung</li>
+                            <li>Perum Puri Majapahit</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Puri')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                        Cek Lokasi Puri
+                    </button>
                 </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Mojosari')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Mojosari</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
+
+                <!-- Kecamatan Mojoanyar -->
+                <div class="cluster-card bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg text-[#002dbb]">Kec. Mojoanyar</h3>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded-full">Tercover</span>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-6 list-disc list-inside">
+                            <li>Bumi Jabon Estate</li>
+                            <li>Desa Gayaman</li>
+                            <li>Desa Jabon</li>
+                            <li>Desa Wunut</li>
+                            <li>Graha Majapahit</li>
+                            <li>Taman Majapahit Firdaus Regency</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Mojoanyar')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                        Cek Lokasi Mojoanyar
+                    </button>
                 </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Ngoro')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Ngoro</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
+
+                <!-- Kecamatan Bangsal -->
+                <div class="cluster-card bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg text-[#002dbb]">Kec. Bangsal</h3>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded-full">Tercover</span>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-6 list-disc list-inside">
+                            <li>Desa Ngastemi</li>
+                            <li>Desa Pancing</li>
+                            <li>Desa Pekuwon</li>
+                            <li>Desa Salen</li>
+                            <li>Desa Mojotamping</li>
+                            <li>Perum Graha Bhinneka Fortuna</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Bangsal')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                        Cek Lokasi Bangsal
+                    </button>
                 </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Pungging')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Pungging</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
+
+                <!-- Kecamatan Mojosari -->
+                <div class="cluster-card bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg text-[#002dbb]">Kec. Mojosari</h3>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded-full">Tercover</span>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-6 list-disc list-inside">
+                            <li>Desa Belahan Tengah</li>
+                            <li>Desa Jolangan</li>
+                            <li>Desa Kebon Dalem</li>
+                            <li>Desa Randubango</li>
+                            <li>Desa Menanggal</li>
+                            <li>Desa Modopuro</li>
+                            <li>Desa Pekukuhan</li>
+                            <li>Desa Seduri</li>
+                            <li>Desa Sumbertanggul</li>
+                            <li>Kelurahan Sarirejo</li>
+                            <li>Perum Ahsana Modern Mojosari</li>
+                            <li>Perum Griya Pekukuhan Asri</li>
+                            <li>Perum Graha Menanggal Indah</li>
+                            <li>Perum Griya Nanggal Asri</li>
+                            <li>Perum Menanggal Indah</li>
+                            <li>Perum Menanggal Residence</li>
+                            <li>Perum Rumahku Residence</li>
+                            <li>Perum Zian Istana Residence</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Mojosari')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                        Cek Lokasi Mojosari
+                    </button>
                 </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Bangsal')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Bangsal</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
+
+                <!-- Kecamatan Kutorejo -->
+                <div class="cluster-card bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg text-[#002dbb]">Kec. Kutorejo</h3>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded-full">Tercover</span>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-6 list-disc list-inside">
+                            <li>Desa Kepuhpandak</li>
+                            <li>Desa Pesanggrahan</li>
+                            <li>Desa Singowangi</li>
+                            <li>Desa Wonodadi</li>
+                            <li>Perum Permata Pesanggrahan</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Kutorejo')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                        Cek Lokasi Kutorejo
+                    </button>
                 </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Dlanggu')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Dlanggu</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
+
+                <!-- Kecamatan Pungging -->
+                <div class="cluster-card bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg text-[#002dbb]">Kec. Pungging</h3>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded-full">Tercover</span>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-6 list-disc list-inside">
+                            <li>Desa Balongmasin</li>
+                            <li>Desa Jabontegal</li>
+                            <li>Desa Jatilangkung</li>
+                            <li>Desa Watukenongo</li>
+                            <li>Desa Kembangringgit</li>
+                            <li>Desa Sekargadung</li>
+                            <li>Desa Tunggalpager</li>
+                            <li>Desa Mojorejo</li>
+                            <li>Grand Panjer Regency</li>
+                            <li>Wisma Pungging Permai</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Pungging')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                        Cek Lokasi Pungging
+                    </button>
                 </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Trowulan')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Trowulan</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
+
+                <!-- Kecamatan Ngoro -->
+                <div class="cluster-card bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg text-[#002dbb]">Kec. Ngoro</h3>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded-full">Tercover</span>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-6 list-disc list-inside">
+                            <li>Desa Ngoro</li>
+                            <li>Desa Jasem</li>
+                            <li>Desa Candiharjo</li>
+                            <li>Perum Baiti Jannati</li>
+                            <li>Desa Sedati</li>
+                            <li>Desa Wonosari</li>
+                            <li>Perum Griya Wonosari Indah</li>
+                            <li>Desa Watesnegoro</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Ngoro')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                        Cek Lokasi Ngoro
+                    </button>
                 </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Puri')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Puri</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
-                </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Jatirejo')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Jatirejo</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
-                </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Gondang')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Gondang</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
-                </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Pacet')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Pacet</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
-                </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Trawas')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Trawas</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
-                </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Kutorejo')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Kutorejo</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
-                </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Kemlagi')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Kemlagi</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
-                </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Jetis')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Jetis</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
-                </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Dawarblandong')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Dawarblandong</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
-                </div>
-                <div class="kecamatan-card bg-slate-50 hover:bg-blue-50/80 border border-slate-200 p-4 rounded-2xl text-center transition card-hover cursor-pointer" onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Mojokerto Kota')">
-                    <div class="text-emerald-500 text-lg mb-1"><i class="fas fa-check-circle"></i></div>
-                    <h4 class="font-bold text-slate-800 text-sm">Mojokerto Kota</h4>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full mt-1 inline-block">Tercover Fiber</span>
-                </div>
+
             </div>
             
             <div id="noResult" class="hidden text-center py-10 text-slate-400 text-sm">
-                <i class="fas fa-info-circle mr-1"></i> Kecamatan tidak ditemukan dalam daftar jangkauan, silakan hubungi admin via WhatsApp untuk konfirmasi manual.
+                <i class="fas fa-info-circle mr-1"></i> Cluster atau wilayah yang Anda cari tidak ditemukan dalam daftar, silakan hubungi admin via WhatsApp untuk konfirmasi manual.
             </div>
         </div>
     </section>
@@ -690,8 +793,8 @@
                 </div>
 
                 <div class="mb-6">
-                    <label id="labelKeterangan" class="block text-sm font-semibold text-slate-700 mb-1">Detail Alamat / Catatan Lokasi</label>
-                    <textarea id="inputKeterangan" rows="2" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="Masukkan detail tambahan..."></textarea>
+                    <label id="labelKeterangan" class="block text-sm font-semibold text-slate-700 mb-1">Detail Alamat / Desa / Perumahan</label>
+                    <textarea id="inputKeterangan" rows="2" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="Masukkan nama desa/perumahan dan detail nomor rumah..."></textarea>
                 </div>
 
                 <button type="submit" id="submitBtn" class="w-full py-3.5 bg-[#002dbb] hover:bg-blue-800 text-white font-bold rounded-xl transition shadow-lg flex items-center justify-center gap-2 hover:scale-[1.02]">
@@ -938,16 +1041,16 @@
             }));
         });
 
-        // Fungsi Live Search untuk Coverage Area
-        function filterKecamatan() {
-            const input = document.getElementById('searchKecamatan').value.toLowerCase();
-            const cards = document.querySelectorAll('.kecamatan-card');
+        // Fungsi Live Search untuk Cluster Area
+        function filterCluster() {
+            const input = document.getElementById('searchCluster').value.toLowerCase();
+            const cards = document.querySelectorAll('.cluster-card');
             let foundCount = 0;
 
             cards.forEach(card => {
-                const title = card.querySelector('h4').innerText.toLowerCase();
-                if (title.includes(input)) {
-                    card.style.display = 'block';
+                const text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = 'flex';
                     foundCount++;
                 } else {
                     card.style.display = 'none';
@@ -970,8 +1073,8 @@
             document.getElementById('modalSubtitle').innerText = isPelamar ? 'Lengkapi data diri Anda, lalu kirim langsung ke WhatsApp.' : 'Lengkapi data lokasi pemasangan WiFi Anda.';
             
             document.getElementById('labelWilayah').innerText = isPelamar ? 'Posisi yang Dilamar' : 'Kecamatan (Wilayah Pemasangan)';
-            document.getElementById('labelKeterangan').innerText = isPelamar ? 'Pengalaman Kerja Singkat' : 'Alamat / Catatan Lokasi';
-            document.getElementById('inputKeterangan').placeholder = isPelamar ? 'Contoh: Pengalaman sales 1 tahun di bidang telekomunikasi...' : 'Contoh: Dusun Tambakrejo / Perumahan...';
+            document.getElementById('labelKeterangan').innerText = isPelamar ? 'Pengalaman Kerja Singkat' : 'Nama Desa / Perumahan & Detail Alamat';
+            document.getElementById('inputKeterangan').placeholder = isPelamar ? 'Contoh: Pengalaman sales 1 tahun...' : 'Contoh: Desa Sooko / Perum Wisma Sooko Indah...';
 
             const selectWilayah = document.getElementById('inputWilayah');
             selectWilayah.innerHTML = ''; 
@@ -983,10 +1086,8 @@
                 selectWilayah.appendChild(opt);
             } else {
                 const kecamatanMojokerto = [
-                    'Mojoanyar', 'Sooko', 'Mojosari', 'Ngoro', 'Pungging', 
-                    'Bangsal', 'Dlanggu', 'Trowulan', 'Puri', 'Jatirejo', 
-                    'Gondang', 'Pacet', 'Trawas', 'Kutorejo', 'Kemlagi', 
-                    'Jetis', 'Dawarblandong', 'Mojokerto Kota'
+                    'Kec. Sooko', 'Kec. Puri', 'Kec. Mojoanyar', 'Kec. Bangsal', 
+                    'Kec. Mojosari', 'Kec. Kutorejo', 'Kec. Pungging', 'Kec. Ngoro'
                 ];
                 selectWilayah.innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
                 kecamatanMojokerto.forEach(kec => {
@@ -995,6 +1096,11 @@
                     opt.textContent = kec;
                     selectWilayah.appendChild(opt);
                 });
+
+                if (kategori.includes('Kecamatan ')) {
+                    const namaKec = kategori.replace('Pelanggan - Cek Lokasi ', '');
+                    selectWilayah.value = namaKec;
+                }
             }
 
             document.getElementById('leadModal').classList.remove('hidden');
@@ -1028,8 +1134,8 @@
                         `📦 *Paket:* ${currentKategori}\n` +
                         `👤 *Nama:* ${nama}\n` +
                         `📞 *No WA:* ${whatsapp}\n` +
-                        `📍 *Kecamatan:* ${wilayah}, KAB. MOJOKERTO\n` +
-                        `🏠 *Alamat/Detail:* ${keterangan}\n\n` +
+                        `📍 *Kecamatan:* ${wilayah}\n` +
+                        `🏠 *Desa/Perumahan & Alamat:* ${keterangan}\n\n` +
                         `_Halo Admin, mohon bantuan untuk pengecekan jaringan di lokasi saya. Terima kasih!_`;
             }
             
