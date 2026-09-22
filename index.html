@@ -165,9 +165,9 @@
                 <button onclick="openTestimoniModal(); toggleMobileMenu();" class="flex items-center gap-3 w-full px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition text-left">
                     <i class="fas fa-comments w-5 text-amber-500"></i> Testimoni Pelanggan
                 </button>
-                <a href="#karir" class="mobile-link flex items-center gap-3 px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition">
+                <button onclick="openKarirModal(); toggleMobileMenu();" class="flex items-center gap-3 w-full px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition text-left">
                     <i class="fas fa-briefcase w-5 text-[#002dbb]"></i> Lowongan Kerja (Lowker)
-                </a>
+                </button>
                 <button onclick="openStrukturModal(); toggleMobileMenu();" class="flex items-center gap-3 w-full px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition text-left">
                     <i class="fas fa-users w-5 text-[#002dbb]"></i> Profil Tim & Struktur Organisasi
                 </button>
@@ -843,42 +843,6 @@
         </div>
     </section>
 
-    <!-- LOWONGAN KERJA -->
-    <section id="karir" class="py-24 bg-slate-50 overflow-hidden border-t border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <div class="flex justify-center mb-3">
-                    <span class="inline-flex items-center gap-1.5 bg-blue-50 text-[#002dbb] px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase shadow-sm">
-                        <i class="fas fa-briefcase"></i> KESEMPATAN BERKARIR
-                    </span>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-[#002dbb] tracking-tight">Bergabung Bersama Kami</h2>
-            </div>
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="w-full md:w-1/2" data-aos="fade-right" data-aos-duration="800">
-                    <img src="https://placehold.co/600x400/e2e8f0/002dbb?text=Bergabung+Bersama+Kami" alt="Lowongan Kerja" class="rounded-2xl shadow-sm hover:scale-[1.01] transition duration-500">
-                </div>
-                <div class="w-full md:w-1/2" data-aos="fade-left" data-aos-duration="800">
-                    <p class="text-slate-600 mb-6 text-lg font-light">XL Satu Mojokerto terus berkembang dan kami mencari talenta-talenta terbaik untuk maju bersama kami melayani masyarakat.</p>
-                    
-                    <div class="bg-white border-l-4 border-[#b2ff05] p-6 rounded-r-xl mb-6 shadow-sm card-hover">
-                        <h4 class="font-bold text-lg text-slate-800 mb-2">Posisi Tersedia: Direct Sales Agent (DSA)</h4>
-                        <ul class="list-disc list-inside text-slate-600 space-y-1">
-                            <li>Pria/Wanita maksimal 45 tahun</li>
-                            <li>Minimal lulusan SMA/SMK sederajat</li>
-                            <li>Memiliki kendaraan pribadi & SIM C</li>
-                            <li>Berorientasi pada target & komunikatif</li>
-                        </ul>
-                    </div>
-                    
-                    <button onclick="openModal('Kandidat - Lamaran Direct Sales Agent (DSA)')" class="btn-glow inline-block px-8 py-3 bg-[#002dbb] text-white rounded-full font-medium shadow-sm">
-                        <i class="fas fa-paper-plane mr-2"></i> Kirim Lamaran & Lanjut ke WhatsApp
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- MODAL FORMULIR -->
     <div id="leadModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
         <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-fade-in">
@@ -996,6 +960,39 @@
                         </a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL LOWONGAN KERJA (KARIR) -->
+    <div id="karirModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-fade-in">
+            <button onclick="closeKarirModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="text-center mb-6">
+                <span class="inline-block bg-blue-50 text-[#002dbb] px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-2">
+                    <i class="fas fa-briefcase"></i> KESEMPATAN BERKARIR
+                </span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-[#002dbb] tracking-tight">Bergabung Bersama Kami</h2>
+            </div>
+            
+            <p class="text-slate-600 mb-6 text-sm text-center font-light">XL Satu Mojokerto terus berkembang dan kami mencari talenta-talenta terbaik untuk maju bersama kami melayani masyarakat.</p>
+            
+            <div class="bg-slate-50 border-l-4 border-[#b2ff05] p-6 rounded-r-xl mb-6 shadow-sm">
+                <h4 class="font-bold text-lg text-slate-800 mb-2">Posisi Tersedia: Direct Sales Agent (DSA)</h4>
+                <ul class="list-disc list-inside text-slate-600 space-y-1 text-xs md:text-sm">
+                    <li>Pria/Wanita maksimal 45 tahun</li>
+                    <li>Minimal lulusan SMA/SMK sederajat</li>
+                    <li>Memiliki kendaraan pribadi & SIM C</li>
+                    <li>Berorientasi pada target & komunikatif</li>
+                </ul>
+            </div>
+            
+            <div class="text-center">
+                <button onclick="closeKarirModal(); openModal('Kandidat - Lamaran Direct Sales Agent (DSA)')" class="btn-glow inline-block px-8 py-3.5 bg-[#002dbb] text-white rounded-xl font-semibold shadow-sm text-sm">
+                    <i class="fas fa-paper-plane mr-2"></i> Kirim Lamaran Sekarang
+                </button>
             </div>
         </div>
     </div>
@@ -1291,7 +1288,7 @@
                             <i class="fab fa-whatsapp text-red-400 mt-1 mr-3 text-xl"></i>
                             <div>
                                 <p class="text-white font-medium">Admin Troubleshoot / Gangguan</p>
-                                <span class="text-slate-300 text-sm">0819-5284-4513</span>
+                                <span class="text-slate-300 text-sm">0819-5284-4513 (Silakan cek via menu Hamburger)</span>
                             </div>
                         </li>
                     </ul>
@@ -1405,6 +1402,13 @@
         }
         function closeFwaModal() {
             document.getElementById('fwaModal').classList.add('hidden');
+        }
+
+        function openKarirModal() {
+            document.getElementById('karirModal').classList.remove('hidden');
+        }
+        function closeKarirModal() {
+            document.getElementById('karirModal').classList.add('hidden');
         }
 
         function filterCluster() {
