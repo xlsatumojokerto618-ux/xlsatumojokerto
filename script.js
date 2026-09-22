@@ -147,8 +147,8 @@ function openModal(kategori, defaultKec = '') {
     const isPelamar = kategori.includes('Kandidat');
     const isGangguan = kategori.includes('Gangguan');
     
-    document.getElementById('modalTitle').innerText = isGangguan ? 'Formulir Laporan Gangguan WiFi' : (isPelamar ? 'Formulir Kirim Lamaran' : 'Formulir Cek Lokasi Pelanggan');
-    document.getElementById('modalSubtitle').innerText = isGangguan ? 'Laporkan kendala atau gangguan jaringan Anda kepada tim Troubleshoot.' : (isPelamar ? 'Lengkapi data diri Anda.' : 'Pilih kecamatan dan desa/perumahan Anda.');
+    document.getElementById('modalTitle').innerText = isGangguan ? 'Formulir Laporan Gangguan WiFi' : (isPelamar ? 'Formulir Kirim Lamaran (DSA)' : 'Formulir Cek Lokasi Pelanggan');
+    document.getElementById('modalSubtitle').innerText = isGangguan ? 'Laporkan kendala atau gangguan jaringan Anda kepada tim Troubleshoot.' : (isPelamar ? 'Lengkapi data diri Anda untuk posisi Direct Sales Agent (DSA).' : 'Pilih kecamatan dan desa/perumahan Anda.');
     
     const idPelangganWrapper = document.getElementById('idPelangganWrapper');
     const wilayahWrapper = document.getElementById('kecamatanWrapper');
@@ -318,13 +318,13 @@ async function submitForm(e) {
     } else if (isPelamar) {
         pesan = `✨ *PENGAJUAN LAMARAN KERJA* ✨\n` +
                 `🔑 *Kode Unik:* #${uniqueCode}\n\n` +
-                `📌 *Posisi:* ${currentKategori}\n` +
+                `📌 *Posisi:* Direct Sales Agent (DSA)\n` +
                 `👤 *Nama:* ${nama}\n` +
                 `📞 *No WA:* ${whatsapp}\n` +
                 `🎓 *Pendidikan Terakhir:* ${pendidikan}\n` +
                 `💼 *Pengalaman Sales/Marketing:* ${pengalamanSales}\n` +
                 `📝 *Keterangan Tambahan:* ${alamat}\n\n` +
-                `_Halo Admin, saya berminat bergabung. Terima kasih!_`;
+                `_Halo Admin, saya berminat bergabung sebagai DSA. Terima kasih!_`;
     } else {
         pesan = `🔍 *PERMINTAAN CEK LOKASI WIFI* 🔍\n` +
                 `🔑 *Kode Unik:* #${uniqueCode}\n\n` +
