@@ -96,6 +96,10 @@
             from { opacity: 0; transform: scale(0.95) translateY(10px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
+
+        .dok-item {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 overflow-x-hidden antialiased">
@@ -114,13 +118,10 @@
                     <a href="#beranda" class="text-slate-600 hover:text-[#002dbb] font-medium transition duration-200">Beranda</a>
                     <a href="#paket" class="text-slate-600 hover:text-[#002dbb] font-medium transition duration-200">Paket Fiber</a>
                     <a href="#paket-kuota" class="text-slate-600 hover:text-[#002dbb] font-medium transition duration-200">Internet + Kuota</a>
-                    <a href="#fwa" class="text-slate-600 hover:text-[#002dbb] font-medium transition duration-200">XL SATU FWA</a>
                     <a href="#coverage" class="text-slate-600 hover:text-[#002dbb] font-medium transition duration-200">Peta Wilayah</a>
-                    <a href="#testimoni" class="text-slate-600 hover:text-[#002dbb] font-medium transition duration-200">Testimoni</a>
-                    <a href="#karir" class="text-slate-600 hover:text-[#002dbb] font-medium transition duration-200">Lowongan Kerja</a>
-                    <a href="#tim" class="text-slate-600 hover:text-[#002dbb] font-medium transition duration-200">Profil Tim</a>
-                    <button onclick="openShareModal()" class="btn-glow bg-emerald-500 text-white px-4 py-2 rounded-full font-medium transition shadow-sm flex items-center gap-2 text-sm">
-                        <i class="fas fa-share-alt"></i> Bagikan Web
+
+                    <button id="pc-menu-button" class="text-slate-700 hover:text-[#002dbb] focus:outline-none p-2.5 rounded-xl bg-slate-100 transition ml-2">
+                        <i class="fas fa-bars text-lg"></i>
                     </button>
                 </div>
 
@@ -132,12 +133,17 @@
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-slate-100 absolute w-full shadow-lg transition-all">
+        <div id="mobile-menu" class="hidden bg-white/95 backdrop-blur-md border-t border-slate-100 absolute w-full shadow-lg transition-all">
             <div class="px-6 pt-4 pb-6 space-y-2">
                 <button onclick="openShareModal(); toggleMobileMenu();" class="flex items-center gap-3 w-full px-4 py-3 bg-emerald-50 text-emerald-700 font-bold rounded-xl shadow-sm hover:bg-emerald-100 transition">
                     <i class="fas fa-share-alt w-5 text-emerald-600"></i> Bagikan Web & QR Code
                 </button>
+                <button onclick="openModal('Pelanggan - Laporan Gangguan'); toggleMobileMenu();" class="flex items-center gap-3 w-full px-4 py-3 bg-red-50 text-red-700 font-bold rounded-xl shadow-sm hover:bg-red-100 transition">
+                    <i class="fas fa-tools w-5 text-red-600"></i> Lapor Gangguan / Kendala WiFi
+                </button>
                 
+                <hr class="border-slate-200 my-2">
+
                 <a href="#beranda" class="mobile-link flex items-center gap-3 px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition">
                     <i class="fas fa-home w-5 text-[#002dbb]"></i> Beranda
                 </a>
@@ -147,26 +153,24 @@
                 <a href="#paket-kuota" class="mobile-link flex items-center gap-3 px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition">
                     <i class="fas fa-mobile-alt w-5 text-emerald-600"></i> Internet + Kuota Sekeluarga
                 </a>
-                <a href="#fwa" class="mobile-link flex items-center gap-3 px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition">
+                <button onclick="openFwaModal(); toggleMobileMenu();" class="flex items-center gap-3 w-full px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition text-left">
                     <i class="fas fa-satellite-dish w-5 text-amber-500"></i> XL SATU FWA (Coming Soon)
-                </a>
+                </button>
                 <a href="#coverage" class="mobile-link flex items-center gap-3 px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition">
                     <i class="fas fa-map-marked-alt w-5 text-emerald-500"></i> Peta Wilayah Jangkauan
                 </a>
-                <a href="#testimoni" class="mobile-link flex items-center gap-3 px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition">
+                <button onclick="openDokumentasiModal(); toggleMobileMenu();" class="flex items-center gap-3 w-full px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition text-left">
+                    <i class="fas fa-camera w-5 text-blue-600"></i> Dokumentasi Kegiatan Lapangan
+                </button>
+                <button onclick="openTestimoniModal(); toggleMobileMenu();" class="flex items-center gap-3 w-full px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition text-left">
                     <i class="fas fa-comments w-5 text-amber-500"></i> Testimoni Pelanggan
-                </a>
+                </button>
                 <a href="#karir" class="mobile-link flex items-center gap-3 px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition">
-                    <i class="fas fa-briefcase w-5 text-[#002dbb]"></i> Lowongan Kerja
+                    <i class="fas fa-briefcase w-5 text-[#002dbb]"></i> Lowongan Kerja (Lowker)
                 </a>
-                <a href="#tim" class="mobile-link flex items-center gap-3 px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition">
-                    <i class="fas fa-users w-5 text-[#002dbb]"></i> Profil Tim
-                </a>
-                <div class="pt-2 border-t border-slate-100">
-                    <a href="#kontak" class="mobile-link flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#002dbb] text-white font-bold rounded-xl shadow-md hover:bg-blue-800 transition">
-                        <i class="fas fa-headset"></i> Hubungi Kami
-                    </a>
-                </div>
+                <button onclick="openStrukturModal(); toggleMobileMenu();" class="flex items-center gap-3 w-full px-4 py-3 text-slate-700 font-semibold hover:bg-blue-50 hover:text-[#002dbb] rounded-xl transition text-left">
+                    <i class="fas fa-users w-5 text-[#002dbb]"></i> Profil Tim & Struktur Organisasi
+                </button>
             </div>
         </div>
     </nav>
@@ -175,6 +179,7 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- BERANDA -->
     <section id="beranda" class="pt-32 pb-20 hero-gradient relative overflow-hidden">
         <div class="absolute inset-0 bg-[url('https://placehold.co/1920x1080/001a70/002dbb?text=Pattern')] opacity-10 bg-cover bg-center"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" data-aos="fade-up" data-aos-duration="800">
@@ -188,13 +193,16 @@
                 <p class="text-lg md:text-xl text-blue-100 mb-10 leading-relaxed font-light">
                     Nikmati koneksi internet fiber optic tanpa batas kuota dengan hiburan kelas dunia. Pilihan tepat untuk produktivitas dan hiburan di rumah Anda.
                 </p>
-                <a href="#paket" class="inline-block bg-[#b2ff05] text-[#002dbb] px-8 py-4 rounded-full font-bold text-lg btn-glow transition-all">
-                    Lihat Paket Kami <i class="fas fa-arrow-down ml-2"></i>
-                </a>
+                <div>
+                    <a href="#paket" class="inline-block bg-[#b2ff05] text-[#002dbb] px-8 py-4 rounded-full font-bold text-lg btn-glow transition-all">
+                        Lihat Paket Kami <i class="fas fa-arrow-down ml-2"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- BAGIAN PAKET FIBER -->
     <section id="paket" class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="600">
@@ -466,6 +474,7 @@
                 </div>
             </div>
 
+            <!-- BAGIAN PAKET KUOTA -->
             <div id="paket-kuota" class="pt-10 mb-16" data-aos="fade-up">
                 <div class="text-center mb-12">
                     <span class="inline-block bg-emerald-100 text-emerald-800 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-3">
@@ -617,41 +626,18 @@
                     </div>
                 </div>
             </div>
-
-            <div id="fwa" class="bg-gradient-to-r from-slate-900 to-[#002dbb] rounded-3xl p-8 md:p-12 text-white shadow-lg relative overflow-hidden card-hover" data-aos="fade-up">
-                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
-                    <div class="max-w-xl">
-                        <span class="inline-block bg-amber-400 text-slate-900 font-bold px-3.5 py-1 rounded-full text-xs uppercase tracking-wider mb-4 shadow-sm">
-                            🚀 Segera Hadir di Mojokerto
-                        </span>
-                        <h3 class="text-2xl md:text-3xl font-bold mb-4 tracking-tight">XL SATU FWA (Fixed Wireless Access)</h3>
-                        <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-6 font-light">
-                            Solusi internet rumah nirkabel tanpa tarik kabel fiber optic! Cukup colok modem router langsung konek dengan jaringan 4G/5G XL berkecepatan tinggi. Praktis, tanpa ribet instalasi jalur kabel rumah.
-                        </p>
-                        <div class="flex flex-wrap gap-4 text-xs font-semibold text-slate-200">
-                            <span class="bg-white/10 px-3 py-1.5 rounded-lg border border-white/10"><i class="fas fa-check text-[#b2ff05] mr-1.5"></i> Tanpa Tarik Kabel</span>
-                            <span class="bg-white/10 px-3 py-1.5 rounded-lg border border-white/10"><i class="fas fa-check text-[#b2ff05] mr-1.5"></i> Plug & Play Mudah</span>
-                            <span class="bg-white/10 px-3 py-1.5 rounded-lg border border-white/10"><i class="fas fa-check text-[#b2ff05] mr-1.5"></i> Kuota Tanpa Batas</span>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-auto text-center">
-                        <a href="https://wa.me/6285974511215?text=Halo%20Admin,%20saya%20tertarik%20dan%20ingin%20info%20lebih%20lanjut%20mengenai%20XL%20SATU%20FWA%20yang%20segera%20hadir%20di%20Mojokerto." target="_blank" class="inline-block bg-[#b2ff05] text-[#002dbb] px-8 py-4 rounded-2xl font-bold text-sm btn-glow transition shadow-md">
-                            <i class="fab fa-whatsapp text-lg mr-2"></i> Daftar / Tanya Info FWA
-                        </a>
-                        <p class="text-xs text-slate-400 mt-3">Dapatkan prioritas pemasangan saat launching!</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
+    <!-- BAGIAN COVERAGE / CEK LOKASI -->
     <section id="coverage" class="py-24 bg-white border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12" data-aos="fade-up">
-                <span class="inline-block bg-blue-50 text-[#002dbb] px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-3">
-                    🗺️ Daftar Cluster Wilayah Tercover Fiber Optic
-                </span>
+                <div class="flex justify-center mb-3">
+                    <span class="inline-flex items-center gap-1.5 bg-blue-50 text-[#002dbb] px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase shadow-sm">
+                        <i class="fas fa-map-marked-alt"></i> DAFTAR CLUSTER WILAYAH TERCOVER FIBER OPTIC
+                    </span>
+                </div>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-[#002dbb] mb-4 tracking-tight">Cek Cluster & Kelurahan / Desa di Kabupaten Mojokerto</h2>
                 <p class="text-slate-500 max-w-2xl mx-auto">Pilih atau cari kecamatan di bawah ini untuk melihat rincian desa dan perumahan yang sudah tercover jaringan XL Satu.</p>
             </div>
@@ -857,94 +843,25 @@
         </div>
     </section>
 
-    <section id="testimoni" class="py-24 bg-slate-50 border-t border-slate-100">
+    <!-- LOWONGAN KERJA -->
+    <section id="karir" class="py-24 bg-slate-50 overflow-hidden border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <span class="inline-block bg-blue-50 text-[#002dbb] px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-3">
-                    💬 Ulasan Pelanggan Setia
-                </span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-[#002dbb] mb-4 tracking-tight">Apa Kata Mereka Tentang XL SATU Mojokerto?</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto">Kepuasan pelanggan adalah prioritas kami. Berikut adalah pengalaman nyata dari warga yang sudah menikmati internet super cepat di rumah.</p>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <div class="flex justify-center mb-3">
+                    <span class="inline-flex items-center gap-1.5 bg-blue-50 text-[#002dbb] px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase shadow-sm">
+                        <i class="fas fa-briefcase"></i> KESEMPATAN BERKARIR
+                    </span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-[#002dbb] tracking-tight">Bergabung Bersama Kami</h2>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-3xl p-8 border border-slate-100 card-hover flex flex-col justify-between relative" data-aos="fade-up" data-aos-delay="100">
-                    <div class="absolute top-6 right-6 text-blue-100 text-3xl"><i class="fas fa-quote-right"></i></div>
-                    <div>
-                        <div class="flex text-amber-400 mb-4 space-x-1">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="text-slate-600 text-sm italic mb-6 leading-relaxed">
-                            "Pemasangan cepat dan teknisinya sangat ramah. Sinyal WiFi di area Sooko stabil banget buat kerja WFH dan anak-anak sekolah online tanpa lemot sama sekali!"
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
-                        <div class="w-12 h-12 bg-[#002dbb] text-white rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
-                            BS
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 text-sm">Budi Santoso</h4>
-                            <p class="text-xs text-slate-500">Warga Sooko, Mojokerto</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-3xl p-8 border border-slate-100 card-hover flex flex-col justify-between relative" data-aos="fade-up" data-aos-delay="150">
-                    <div class="absolute top-6 right-6 text-blue-100 text-3xl"><i class="fas fa-quote-right"></i></div>
-                    <div>
-                        <div class="flex text-amber-400 mb-4 space-x-1">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="text-slate-600 text-sm italic mb-6 leading-relaxed">
-                            "Udah hampir 6 bulan pakai paket 300 Mbps, lancar jaya tidak pernah ada gangguan berarti. Bonus kuota HP keluarganya juga sangat membantu banget di HP istri."
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
-                        <div class="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
-                            DW
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 text-sm">Dewi Lestari</h4>
-                            <p class="text-xs text-slate-500">Warga Mojoanyar, Mojokerto</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-3xl p-8 border border-slate-100 card-hover flex flex-col justify-between relative" data-aos="fade-up" data-aos-delay="200">
-                    <div class="absolute top-6 right-6 text-blue-100 text-3xl"><i class="fas fa-quote-right"></i></div>
-                    <div>
-                        <div class="flex text-amber-400 mb-4 space-x-1">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="text-slate-600 text-sm italic mb-6 leading-relaxed">
-                            "Adminnya responsif banget pas dihubungi via WhatsApp buat cek lokasi. Ternyata daerah Mojosari rumah saya sudah tercover fiber optic. Mantap jaya!"
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
-                        <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
-                            AR
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 text-sm">Ahmad Rifa'i</h4>
-                            <p class="text-xs text-slate-500">Warga Mojosari, Mojokerto</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="karir" class="py-24 bg-white overflow-hidden border-t border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-center gap-12">
                 <div class="w-full md:w-1/2" data-aos="fade-right" data-aos-duration="800">
                     <img src="https://placehold.co/600x400/e2e8f0/002dbb?text=Bergabung+Bersama+Kami" alt="Lowongan Kerja" class="rounded-2xl shadow-sm hover:scale-[1.01] transition duration-500">
                 </div>
                 <div class="w-full md:w-1/2" data-aos="fade-left" data-aos-duration="800">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-[#002dbb] mb-6 tracking-tight">Bergabung Menjadi Bagian dari Kami</h2>
                     <p class="text-slate-600 mb-6 text-lg font-light">XL Satu Mojokerto terus berkembang dan kami mencari talenta-talenta terbaik untuk maju bersama kami melayani masyarakat.</p>
                     
-                    <div class="bg-slate-50 border-l-4 border-[#b2ff05] p-6 rounded-r-xl mb-6 shadow-sm card-hover">
+                    <div class="bg-white border-l-4 border-[#b2ff05] p-6 rounded-r-xl mb-6 shadow-sm card-hover">
                         <h4 class="font-bold text-lg text-slate-800 mb-2">Posisi Tersedia: Direct Sales Agent (DSA)</h4>
                         <ul class="list-disc list-inside text-slate-600 space-y-1">
                             <li>Pria/Wanita maksimal 45 tahun</li>
@@ -962,6 +879,7 @@
         </div>
     </section>
 
+    <!-- MODAL FORMULIR -->
     <div id="leadModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
         <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-fade-in">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
@@ -980,28 +898,52 @@
                     <input type="tel" id="inputWa" name="No_WhatsApp" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="08xxxxxxxxxx">
                 </div>
 
-                <div class="mb-4" id="idPelangganWrapper">
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">ID Pelanggan Resmi (Opsional jika sudah ada)</label>
-                    <input type="text" id="inputIdPelanggan" name="ID_Pelanggan" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="Masukkan ID Pelanggan (jika ada)...">
+                <div class="mb-4 hidden" id="pendidikanWrapper">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Pendidikan Terakhir</label>
+                    <select id="inputPendidikan" name="Pendidikan_Terakhir" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none bg-white transition">
+                        <option value="">-- Pilih Pendidikan Terakhir --</option>
+                        <option value="SMA/SMK">SMA/SMK</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                    </select>
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-4 hidden" id="pengalamanSalesWrapper">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Pengalaman di Bidang Sales / Marketing</label>
+                    <select id="inputPengalamanSales" name="Pengalaman_Sales" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none bg-white transition">
+                        <option value="">-- Pilih Pengalaman --</option>
+                        <option value="Iyaaa">Iyaaa</option>
+                        <option value="Tidak">Tidak</option>
+                    </select>
+                </div>
+
+                <div class="mb-4" id="idPelangganWrapper">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1" id="labelIdPelanggan">ID Pelanggan Resmi (Wajib diisi untuk laporan gangguan)</label>
+                    <input type="text" id="inputIdPelanggan" name="ID_Pelanggan" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="Masukkan ID Pelanggan...">
+                </div>
+
+                <div class="mb-4" id="kecamatanWrapper">
                     <label id="labelWilayah" class="block text-sm font-semibold text-slate-700 mb-1">Pilih Kecamatan</label>
-                    <select id="inputKecamatan" name="Kecamatan" onchange="updateDesaOptions()" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none bg-white transition">
+                    <select id="inputKecamatan" name="Kecamatan" onchange="updateDesaOptions()" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none bg-white transition">
                         <option value="">-- Pilih Kecamatan --</option>
                     </select>
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-4" id="desaWrapper">
                     <label id="labelSubWilayah" class="block text-sm font-semibold text-slate-700 mb-1">Pilih Desa / Perumahan Cluster</label>
-                    <select id="inputDesa" name="Desa_Cluster" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none bg-white transition">
+                    <select id="inputDesa" name="Desa_Cluster" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none bg-white transition">
                         <option value="">-- Pilih Kecamatan Terlebih Dahulu --</option>
                     </select>
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-4" id="kabupatenWrapper">
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Kabupaten</label>
                     <input type="text" value="KAB. MOJOKERTO" disabled class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-100 text-slate-600 font-semibold cursor-not-allowed">
+                </div>
+
+                <div class="mb-4 hidden" id="kendalaWrapper">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Jelaskan Kendala / Gangguan Anda</label>
+                    <textarea id="inputKendala" name="Kendala" rows="2" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="Contoh: Lampu LOS berkedip merah / Internet mati total..."></textarea>
                 </div>
 
                 <div class="mb-4">
@@ -1009,16 +951,16 @@
                     <textarea id="inputKeterangan" name="Detail_Alamat" rows="2" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="Contoh: RT 02 / RW 01, No. 45..."></textarea>
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-4" id="warnaBlokWrapper">
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Warna Rumah / Blok Rumah</label>
-                    <input type="text" id="inputWarnaBlok" name="Warna_Atau_Blok" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="Contoh: Blok B3 No. 12, Cat Rumah Warna Abu-abu / Pagar Hitam">
+                    <input type="text" id="inputWarnaBlok" name="Warna_Atau_Blok" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="Contoh: Blok B3 No. 12, Cat Rumah Warna Abu-abu">
                 </div>
 
-                <div class="mb-6">
+                <div class="mb-6" id="gpsWrapper">
                     <button type="button" onclick="getGPSLocation()" class="w-full py-2.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold rounded-xl border border-emerald-200 transition flex items-center justify-center gap-2 shadow-sm text-xs">
                         <i class="fas fa-crosshairs text-emerald-600"></i> Ambil Titik Koordinat GPS (Sharelock)
                     </button>
-                    <p id="gpsStatus" class="text-[11px] text-slate-400 mt-1 text-center">Klik tombol di atas agar teknisi mudah melacak titik GPS rumah Anda.</p>
+                    <p id="gpsStatus" class="text-[11px] text-slate-400 mt-1 text-center">Klik tombol di atas agar titik GPS otomatis masuk ke kolom alamat.</p>
                 </div>
 
                 <button type="submit" id="submitBtn" class="btn-glow w-full py-3.5 bg-[#002dbb] text-white font-bold rounded-xl transition shadow-sm flex items-center justify-center gap-2">
@@ -1028,6 +970,278 @@
         </div>
     </div>
 
+    <!-- MODAL FWA (FIXED WIRELESS ACCESS) -->
+    <div id="fwaModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl relative modal-fade-in">
+            <button onclick="closeFwaModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="bg-gradient-to-r from-slate-900 to-[#002dbb] rounded-2xl p-6 md:p-8 text-white shadow-lg relative overflow-hidden">
+                <div class="relative z-10">
+                    <span class="inline-block bg-amber-400 text-slate-900 font-bold px-3 py-1 rounded-full text-[10px] uppercase tracking-wider mb-3 shadow-sm">
+                        🚀 Segera Hadir di Mojokerto
+                    </span>
+                    <h3 class="text-xl md:text-2xl font-bold mb-3 tracking-tight">XL SATU FWA (Fixed Wireless Access)</h3>
+                    <p class="text-slate-300 text-xs md:text-sm leading-relaxed mb-4 font-light">
+                        Solusi internet rumah nirkabel tanpa tarik kabel fiber optic! Cukup colok modem router langsung konek dengan jaringan 4G/5G XL berkecepatan tinggi. Praktis, tanpa ribet instalasi jalur kabel rumah.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-[11px] font-semibold text-slate-200 mb-6">
+                        <span class="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10"><i class="fas fa-check text-[#b2ff05] mr-1"></i> Tanpa Tarik Kabel</span>
+                        <span class="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10"><i class="fas fa-check text-[#b2ff05] mr-1"></i> Plug & Play Mudah</span>
+                        <span class="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10"><i class="fas fa-check text-[#b2ff05] mr-1"></i> Kuota Tanpa Batas</span>
+                    </div>
+                    <div class="text-center">
+                        <a href="https://wa.me/6285974511215?text=Halo%20Admin,%20saya%20tertarik%20dan%20ingin%20info%20lebih%20lanjut%20mengenai%20XL%20SATU%20FWA%20yang%20segera%20hadir%20di%20Mojokerto." target="_blank" class="inline-block bg-[#b2ff05] text-[#002dbb] px-6 py-3 rounded-xl font-bold text-xs btn-glow transition shadow-md w-full">
+                            <i class="fab fa-whatsapp text-sm mr-2"></i> Tanya Info / Daftar Prioritas FWA
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DOKUMENTASI KEGIATAN LAPANGAN -->
+    <div id="dokumentasiModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-fade-in">
+            <button onclick="closeDokumentasiModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="text-center mb-8">
+                <span class="inline-block bg-blue-50 text-[#002dbb] px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-2">
+                    📸 Galeri Kegiatan
+                </span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-[#002dbb] mb-2 tracking-tight">Dokumentasi Kegiatan Lapangan</h2>
+                <p class="text-slate-500 text-xs md:text-sm">Aktivitas dan keseruan tim di area Mojokerto</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3 mb-8">
+                <button onclick="filterDokumentasi('semua')" class="filter-btn px-5 py-2 rounded-full text-xs font-bold bg-[#002dbb] text-white transition-all shadow-sm" id="btn-semua">Semua</button>
+                <button onclick="filterDokumentasi('briefing')" class="filter-btn px-5 py-2 rounded-full text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:border-[#002dbb] transition-all shadow-sm" id="btn-briefing">Briefing Tim</button>
+                <button onclick="filterDokumentasi('booth')" class="filter-btn px-5 py-2 rounded-full text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:border-[#002dbb] transition-all shadow-sm" id="btn-booth">Booth Event</button>
+                <button onclick="filterDokumentasi('kanvasing')" class="filter-btn px-5 py-2 rounded-full text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:border-[#002dbb] transition-all shadow-sm" id="btn-kanvasing">Kanvasing</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="dokGrid">
+                <div class="dok-item bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 card-hover relative group opacity-100 scale-100" data-category="briefing">
+                    <img src="https://placehold.co/600x400/002dbb/ffffff?text=Briefing+Pagi+Tim" alt="Briefing Tim" class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent flex flex-col justify-end p-4 text-white">
+                        <h4 class="font-bold text-sm mb-0.5">Briefing Pagi Tim</h4>
+                        <p class="text-[10px] text-[#b2ff05] font-semibold">Branch Office XL Satu Mojokerto</p>
+                    </div>
+                </div>
+
+                <div class="dok-item bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 card-hover relative group opacity-100 scale-100" data-category="booth">
+                    <img src="https://placehold.co/600x400/14397d/ffffff?text=Booth+Event+Mall" alt="Booth Event" class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent flex flex-col justify-end p-4 text-white">
+                        <h4 class="font-bold text-sm mb-0.5">Pameran / Booth Event</h4>
+                        <p class="text-[10px] text-[#b2ff05] font-semibold">Mall / Alun-alun</p>
+                    </div>
+                </div>
+
+                <div class="dok-item bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 card-hover relative group opacity-100 scale-100" data-category="kanvasing">
+                    <img src="https://placehold.co/600x400/001a70/ffffff?text=Kanvasing+Perumahan" alt="Kanvasing" class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent flex flex-col justify-end p-4 text-white">
+                        <h4 class="font-bold text-sm mb-0.5">Kanvasing Perumahan</h4>
+                        <p class="text-[10px] text-[#b2ff05] font-semibold">Sooko & Mojosari & Ngoro</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TESTIMONI PELANGGAN -->
+    <div id="testimoniModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-fade-in">
+            <button onclick="closeTestimoniModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="text-center mb-8">
+                <span class="inline-block bg-blue-50 text-[#002dbb] px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-2">
+                    💬 Ulasan Pelanggan Setia
+                </span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-[#002dbb] mb-2 tracking-tight">Apa Kata Mereka Tentang XL SATU Mojokerto?</h2>
+                <p class="text-slate-500 text-xs md:text-sm">Pengalaman nyata dari warga yang sudah menikmati internet super cepat di rumah.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 card-hover flex flex-col justify-between relative">
+                    <div class="absolute top-4 right-4 text-blue-100 text-2xl"><i class="fas fa-quote-right"></i></div>
+                    <div>
+                        <div class="flex text-amber-400 mb-3 space-x-1 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-slate-600 text-xs italic mb-4 leading-relaxed">
+                            "Pemasangan cepat dan teknisinya sangat ramah. Sinyal WiFi di area Sooko stabil banget buat kerja WFH dan anak-anak sekolah online tanpa lemot sama sekali!"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-3 border-t border-slate-200">
+                        <div class="w-10 h-10 bg-[#002dbb] text-white rounded-full flex items-center justify-center font-bold text-xs shadow-sm">
+                            BS
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-xs">Budi Santoso</h4>
+                            <p class="text-[10px] text-slate-500">Warga Sooko, Mojokerto</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 card-hover flex flex-col justify-between relative">
+                    <div class="absolute top-4 right-4 text-blue-100 text-2xl"><i class="fas fa-quote-right"></i></div>
+                    <div>
+                        <div class="flex text-amber-400 mb-3 space-x-1 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-slate-600 text-xs italic mb-4 leading-relaxed">
+                            "Udah hampir 6 bulan pakai paket 300 Mbps, lancar jaya tidak pernah ada gangguan berarti. Bonus kuota HP keluarganya juga sangat membantu banget di HP istri."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-3 border-t border-slate-200">
+                        <div class="w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow-sm">
+                            DW
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-xs">Dewi Lestari</h4>
+                            <p class="text-[10px] text-slate-500">Warga Mojoanyar, Mojokerto</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 card-hover flex flex-col justify-between relative">
+                    <div class="absolute top-4 right-4 text-blue-100 text-2xl"><i class="fas fa-quote-right"></i></div>
+                    <div>
+                        <div class="flex text-amber-400 mb-3 space-x-1 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-slate-600 text-xs italic mb-4 leading-relaxed">
+                            "Adminnya responsif banget pas dihubungi via WhatsApp buat cek lokasi. Ternyata daerah Mojosari rumah saya sudah tercover fiber optic. Mantap jaya!"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-3 border-t border-slate-200">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow-sm">
+                            AR
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-xs">Ahmad Rifa'i</h4>
+                            <p class="text-[10px] text-slate-500">Warga Mojosari, Mojokerto</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL STRUKTUR ORGANISASI -->
+    <div id="strukturModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-fade-in">
+            <button onclick="closeStrukturModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-[#002dbb] mb-2 text-center tracking-tight">Struktur Organisasi & Tim</h2>
+            <p class="text-slate-500 text-xs md:text-sm text-center mb-8">Tim profesional, handal, dan berdedikasi tinggi untuk memastikan operasional dan layanan XL Satu Mojokerto selalu prima.</p>
+
+            <div class="max-w-md mx-auto mb-6">
+                <div class="bg-slate-50 rounded-3xl p-6 shadow-sm border border-slate-100 text-center card-hover">
+                    <div class="w-16 h-16 bg-white rounded-full mx-auto mb-3 border-4 border-[#002dbb] flex items-center justify-center text-[#002dbb] text-xl font-bold shadow-sm">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800">Uaisy Alqurni</h3>
+                    <p class="text-[#002dbb] font-semibold text-xs mt-1">TSC (Territory Sales Coordinator)</p>
+                </div>
+            </div>
+
+            <div class="flex justify-center mb-6">
+                <div class="w-0.5 h-6 bg-slate-300"></div>
+            </div>
+
+            <div class="max-w-md mx-auto mb-8">
+                <div class="bg-slate-50 rounded-3xl p-5 shadow-sm border border-slate-100 text-center card-hover">
+                    <div class="w-14 h-14 bg-white rounded-full mx-auto mb-3 border-4 border-blue-400 flex items-center justify-center text-blue-500 text-lg font-bold shadow-sm">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800">Mochamad Sofirulloh</h3>
+                    <p class="text-blue-500 font-semibold text-xs mt-1">Trainer</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-100 mb-8">
+                <h3 class="text-xl font-bold text-center text-slate-800 mb-6">Supervisor (SPV)</h3>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div onclick="toggleSales('brian')" class="bg-white p-4 rounded-2xl border border-slate-100 text-center card-hover cursor-pointer transition shadow-sm">
+                        <div class="w-10 h-10 bg-blue-50 text-[#002dbb] rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-sm">1</div>
+                        <h4 class="font-bold text-slate-800 text-xs">Brian Chrystiawan</h4>
+                        <p class="text-slate-500 text-[11px] mt-0.5">SPV Sales</p>
+                        <div id="sales-brian" class="hidden mt-3 pt-3 border-t border-slate-200 text-left text-[11px]">
+                            <p class="font-semibold text-[#002dbb] mb-1">Anggota Sales:</p>
+                            <ul class="list-disc list-inside text-slate-600 space-y-1"></ul>
+                        </div>
+                    </div>
+
+                    <div onclick="toggleSales('didik')" class="bg-white p-4 rounded-2xl border border-slate-100 text-center card-hover cursor-pointer transition shadow-sm">
+                        <div class="w-10 h-10 bg-blue-50 text-[#002dbb] rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-sm">2</div>
+                        <h4 class="font-bold text-slate-800 text-xs">Didik Bustanul Arifin</h4>
+                        <p class="text-slate-500 text-[11px] mt-0.5">SPV Sales</p>
+                        <div id="sales-didik" class="hidden mt-3 pt-3 border-t border-slate-200 text-left text-[11px]">
+                            <p class="font-semibold text-[#002dbb] mb-1">Anggota Sales:</p>
+                            <ul class="list-disc list-inside text-slate-600 space-y-1"></ul>
+                        </div>
+                    </div>
+
+                    <div onclick="toggleSales('muiz')" class="bg-white p-4 rounded-2xl border border-slate-100 text-center card-hover cursor-pointer transition shadow-sm">
+                        <div class="w-10 h-10 bg-blue-50 text-[#002dbb] rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-sm">3</div>
+                        <h4 class="font-bold text-slate-800 text-xs">Muizaddin Irzani Vatramawan</h4>
+                        <p class="text-slate-500 text-[11px] mt-0.5">SPV Sales</p>
+                        <div id="sales-muiz" class="hidden mt-3 pt-3 border-t border-slate-200 text-left text-[11px]">
+                            <p class="font-semibold text-[#002dbb] mb-1">Anggota Sales:</p>
+                            <ul class="list-disc list-inside text-slate-600 space-y-1"></ul>
+                        </div>
+                    </div>
+
+                    <div onclick="toggleSales('hanif')" class="bg-white p-4 rounded-2xl border border-slate-100 text-center card-hover cursor-pointer transition shadow-sm">
+                        <div class="w-10 h-10 bg-blue-50 text-[#002dbb] rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-sm">4</div>
+                        <h4 class="font-bold text-slate-800 text-xs">Hanif Bagus Setiawan</h4>
+                        <p class="text-slate-500 text-[11px] mt-0.5">SPV Sales</p>
+                        <div id="sales-hanif" class="hidden mt-3 pt-3 border-t border-slate-200 text-left text-[11px]">
+                            <p class="font-semibold text-[#002dbb] mb-1">Anggota Sales:</p>
+                            <ul class="list-disc list-inside text-slate-600 space-y-1"></ul>
+                        </div>
+                    </div>
+
+                    <div onclick="toggleSales('rizky')" class="bg-white p-4 rounded-2xl border border-slate-100 text-center card-hover cursor-pointer transition shadow-sm">
+                        <div class="w-10 h-10 bg-blue-50 text-[#002dbb] rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-sm">5</div>
+                        <h4 class="font-bold text-slate-800 text-xs">Rizky Noor Herdiansyah</h4>
+                        <p class="text-slate-500 text-[11px] mt-0.5">SPV Sales</p>
+                        <div id="sales-rizky" class="hidden mt-3 pt-3 border-t border-slate-200 text-left text-[11px]">
+                            <p class="font-semibold text-[#002dbb] mb-1">Anggota Sales:</p>
+                            <ul class="list-disc list-inside text-slate-600 space-y-1"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-100">
+                <h3 class="text-xl font-bold text-center text-slate-800 mb-6">Tim / Staff</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 text-center card-hover shadow-sm">
+                        <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-sm">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">Purwanti Agustin</h4>
+                        <p class="text-slate-500 text-xs mt-0.5">Staff / Team</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 text-center card-hover shadow-sm">
+                        <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-sm">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">David Surya Wijaya</h4>
+                        <p class="text-slate-500 text-xs mt-0.5">Staff / Team</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHARE MODAL -->
     <div id="shareModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
         <div class="bg-white rounded-3xl max-w-sm w-full p-8 shadow-2xl relative text-center modal-fade-in">
             <button onclick="closeShareModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
@@ -1049,165 +1263,7 @@
         </div>
     </div>
 
-    <section id="tim" class="py-24 bg-slate-50 border-t border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-[#002dbb] mb-4 tracking-tight">Struktur Organisasi & Tim</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto">Tim profesional, handal, dan berdedikasi tinggi untuk memastikan operasional dan layanan XL Satu Mojokerto selalu prima.</p>
-            </div>
-
-            <div class="max-w-md mx-auto mb-8" data-aos="zoom-in" data-aos-duration="600">
-                <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 text-center card-hover">
-                    <div class="w-20 h-20 bg-slate-100 rounded-full mx-auto mb-4 border-4 border-[#002dbb] flex items-center justify-center text-[#002dbb] text-2xl font-bold">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-800">Uaisy Alqurni</h3>
-                    <p class="text-[#002dbb] font-semibold text-sm mt-1">TSC (Territory Sales Coordinator)</p>
-                </div>
-            </div>
-
-            <div class="flex justify-center mb-8">
-                <div class="w-0.5 h-8 bg-slate-300"></div>
-            </div>
-
-            <div class="max-w-md mx-auto mb-12" data-aos="zoom-in" data-aos-duration="600">
-                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 text-center card-hover">
-                    <div class="w-16 h-16 bg-blue-50 rounded-full mx-auto mb-3 border-4 border-blue-400 flex items-center justify-center text-blue-500 text-xl font-bold">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-800">Mochamad Sofirulloh</h3>
-                    <p class="text-blue-500 font-semibold text-xs mt-1">Trainer</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-3xl p-10 shadow-sm border border-slate-100 mb-12 max-w-4xl mx-auto" data-aos="fade-up">
-                <h3 class="text-2xl font-bold text-center text-slate-800 mb-8">Supervisor (SPV)</h3>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    
-                    <!-- SPV 1: Brian Chrystiawan -->
-                    <div onclick="toggleSales('brian')" class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center card-hover cursor-pointer transition">
-                        <div class="w-12 h-12 bg-blue-100 text-[#002dbb] rounded-full mx-auto mb-3 flex items-center justify-center font-bold">1</div>
-                        <h4 class="font-bold text-slate-800 text-sm">Brian Chrystiawan</h4>
-                        <p class="text-slate-500 text-xs mt-1">SPV Sales</p>
-                        
-                        <div id="sales-brian" class="hidden mt-3 pt-3 border-t border-slate-200 text-left text-xs">
-                            <p class="font-semibold text-[#002dbb] mb-1">Anggota Sales:</p>
-                            <ul class="list-disc list-inside text-slate-600 space-y-1"></ul>
-                        </div>
-                    </div>
-
-                    <!-- SPV 2: Didik Bustanul Arifin -->
-                    <div onclick="toggleSales('didik')" class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center card-hover cursor-pointer transition">
-                        <div class="w-12 h-12 bg-blue-100 text-[#002dbb] rounded-full mx-auto mb-3 flex items-center justify-center font-bold">2</div>
-                        <h4 class="font-bold text-slate-800 text-sm">Didik Bustanul Arifin</h4>
-                        <p class="text-slate-500 text-xs mt-1">SPV Sales</p>
-                        
-                        <div id="sales-didik" class="hidden mt-3 pt-3 border-t border-slate-200 text-left text-xs">
-                            <p class="font-semibold text-[#002dbb] mb-1">Anggota Sales:</p>
-                            <ul class="list-disc list-inside text-slate-600 space-y-1"></ul>
-                        </div>
-                    </div>
-
-                    <!-- SPV 3: Muizaddin Irzani Vatramawan -->
-                    <div onclick="toggleSales('muiz')" class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center card-hover cursor-pointer transition">
-                        <div class="w-12 h-12 bg-blue-100 text-[#002dbb] rounded-full mx-auto mb-3 flex items-center justify-center font-bold">3</div>
-                        <h4 class="font-bold text-slate-800 text-sm">Muizaddin Irzani Vatramawan</h4>
-                        <p class="text-slate-500 text-xs mt-1">SPV Sales</p>
-                        
-                        <div id="sales-muiz" class="hidden mt-3 pt-3 border-t border-slate-200 text-left text-xs">
-                            <p class="font-semibold text-[#002dbb] mb-1">Anggota Sales:</p>
-                            <ul class="list-disc list-inside text-slate-600 space-y-1"></ul>
-                        </div>
-                    </div>
-
-                    <!-- SPV 4: Hanif Bagus Setiawan -->
-                    <div onclick="toggleSales('hanif')" class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center card-hover cursor-pointer transition">
-                        <div class="w-12 h-12 bg-blue-100 text-[#002dbb] rounded-full mx-auto mb-3 flex items-center justify-center font-bold">4</div>
-                        <h4 class="font-bold text-slate-800 text-sm">Hanif Bagus Setiawan</h4>
-                        <p class="text-slate-500 text-xs mt-1">SPV Sales</p>
-                        
-                        <div id="sales-hanif" class="hidden mt-3 pt-3 border-t border-slate-200 text-left text-xs">
-                            <p class="font-semibold text-[#002dbb] mb-1">Anggota Sales:</p>
-                            <ul class="list-disc list-inside text-slate-600 space-y-1"></ul>
-                        </div>
-                    </div>
-
-                    <!-- SPV 5: Rizky Noor Herdiansyah -->
-                    <div onclick="toggleSales('rizky')" class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center card-hover cursor-pointer transition">
-                        <div class="w-12 h-12 bg-blue-100 text-[#002dbb] rounded-full mx-auto mb-3 flex items-center justify-center font-bold">5</div>
-                        <h4 class="font-bold text-slate-800 text-sm">Rizky Noor Herdiansyah</h4>
-                        <p class="text-slate-500 text-xs mt-1">SPV Sales</p>
-                        
-                        <div id="sales-rizky" class="hidden mt-3 pt-3 border-t border-slate-200 text-left text-xs">
-                            <p class="font-semibold text-[#002dbb] mb-1">Anggota Sales:</p>
-                            <ul class="list-disc list-inside text-slate-600 space-y-1"></ul>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="bg-white rounded-3xl p-10 shadow-sm border border-slate-100 mb-16 max-w-4xl mx-auto" data-aos="fade-up">
-                <h3 class="text-2xl font-bold text-center text-slate-800 mb-8">Tim / Staff</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center card-hover">
-                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full mx-auto mb-3 flex items-center justify-center font-bold">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-800 text-base">Purwanti Agustin</h4>
-                        <p class="text-slate-500 text-xs mt-1">Staff / Team</p>
-                    </div>
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center card-hover">
-                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full mx-auto mb-3 flex items-center justify-center font-bold">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-800 text-base">David Surya Wijaya</h4>
-                        <p class="text-slate-500 text-xs mt-1">Staff / Team</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mb-8" data-aos="fade-up">
-                <h3 class="text-2xl font-bold text-slate-800 mb-2">Dokumentasi Kegiatan Lapangan</h3>
-                <p class="text-slate-500 text-sm mb-6">Aktivitas dan keseruan tim di area Mojokerto</p>
-
-                <div class="flex flex-wrap justify-center gap-3 mb-10">
-                    <button onclick="filterGallery('all', event)" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-[#002dbb] text-white shadow-sm transition">Semua</button>
-                    <button onclick="filterGallery('briefing', event)" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition">Briefing Tim</button>
-                    <button onclick="filterGallery('booth', event)" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition">Booth Event</button>
-                    <button onclick="filterGallery('kanvasing', event)" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition">Kanvasing</button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="gallery-container">
-                <div class="gallery-item briefing group relative rounded-2xl overflow-hidden shadow-sm aspect-[4/3] card-hover" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://placehold.co/500x375/e2e8f0/1e293b?text=Briefing+Tim" alt="Briefing Tim" class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
-                    <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
-                        <p class="text-white font-bold text-sm">Briefing Pagi Tim</p>
-                        <p class="text-[#b2ff05] text-xs">Branch Office XL Satu Mojokerto</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item booth group relative rounded-2xl overflow-hidden shadow-sm aspect-[4/3] card-hover" data-aos="fade-up" data-aos-delay="150">
-                    <img src="https://placehold.co/500x375/e2e8f0/1e293b?text=Booth+Event" alt="Booth Event" class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
-                    <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
-                        <p class="text-white font-bold text-sm">Pameran / Booth Event</p>
-                        <p class="text-[#b2ff05] text-xs">Mall / Alun-alun</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item kanvasing group relative rounded-2xl overflow-hidden shadow-sm aspect-[4/3] card-hover" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://placehold.co/500x375/e2e8f0/1e293b?text=Kanvasing" alt="Kanvasing" class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
-                    <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
-                        <p class="text-white font-bold text-sm">Kanvasing Perumahan</p>
-                        <p class="text-[#b2ff05] text-xs">Sooko & Mojosari & Ngoro</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- FOOTER -->
     <footer id="kontak" class="bg-[#0a1128] text-white pt-16 pb-8 border-t-4 border-[#b2ff05]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -1219,18 +1275,10 @@
                     <p class="text-slate-400 mb-4 text-sm leading-relaxed font-light">
                         Penyedia layanan internet fiber optic ultra cepat dan hiburan terpadu untuk keluarga di wilayah Mojokerto dan sekitarnya.
                     </p>
-                    <div class="flex space-x-4 mt-6">
-                        <a href="https://www.facebook.com/people/XLsatu-Mojokerto-Rekruitmen/61588451807994/" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, '_blank'); return false;" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#b2ff05] hover:text-[#002dbb] transition cursor-pointer" title="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.instagram.com/xlsatu.mojokerto/" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, '_blank'); return false;" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#b2ff05] hover:text-[#002dbb] transition cursor-pointer" title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
                 </div>
                 
                 <div>
-                    <h4 class="text-lg font-bold mb-6 text-white">Hubungi Kami</h4>
+                    <h4 class="text-lg font-bold mb-6 text-white">Layanan & Bantuan</h4>
                     <ul class="text-slate-400 space-y-4">
                         <li class="flex items-start">
                             <i class="fab fa-whatsapp text-[#b2ff05] mt-1 mr-3 text-xl"></i>
@@ -1243,7 +1291,7 @@
                             <i class="fab fa-whatsapp text-red-400 mt-1 mr-3 text-xl"></i>
                             <div>
                                 <p class="text-white font-medium">Admin Troubleshoot / Gangguan</p>
-                                <a href="https://wa.me/6281952844513" target="_blank" rel="noopener noreferrer" class="hover:text-red-400 transition">0819-5284-4513</a>
+                                <span class="text-slate-300 text-sm">0819-5284-4513</span>
                             </div>
                         </li>
                     </ul>
@@ -1262,10 +1310,6 @@
             
             <div class="border-t border-slate-800 pt-8 text-center md:flex md:justify-between md:items-center">
                 <p class="text-slate-500 text-sm font-light">&copy; 2026 XL SATU Mojokerto X Suryadavid. Hak Cipta Dilindungi.</p>
-                <div class="mt-4 md:mt-0 space-x-4 text-sm text-slate-500">
-                    <a href="#" class="hover:text-white transition">Syarat & Ketentuan</a>
-                    <a href="#" class="hover:text-white transition">Kebijakan Privasi</a>
-                </div>
             </div>
         </div>
     </footer>
@@ -1278,89 +1322,20 @@
         const LIVE_URL = "https://xlsatumojokerto618-ux.github.io/xlsatumojokerto/";
 
         const timSalesData = {
-            "brian": [
-                "Aditya Permadi",
-                "Andhika Duta Nusantara",
-                "Andika Wisnu Putra Pradana",
-                "Bagas Tri Kusumawardana",
-                "Gilang Ardianta Mahesa",
-                "Indah Novitasari",
-                "Moh. Heru Aprijanto",
-                "Rahmad Hidayat",
-                "Rian Pratama",
-                "Risma Septiowati",
-                "Rizky Cahya Adhitama",
-                "Rizky Faza Ramadhan",
-                "Yogsy Tri Pamungkas"
-            ],
-            "didik": [
-                "Ainur Rohman",
-                "Aprilia Eka Saputra",
-                "Dony Irwanto",
-                "Farit Efendie",
-                "Kuntoro",
-                "Michael Rahardjo",
-                "Mochamad Alfan Aminulloh",
-                "Moh. Asifudin",
-                "Muhammad Abdul Ghofur",
-                "Muhammad Mauluddin",
-                "Muhammad Refa Putra",
-                "Rizky Mawardi Nugraha"
-            ],
-            "muiz": [
-                "Adi Gunawan",
-                "Amanda Krista Dewi",
-                "Anasrul Mahendra Wahyuda",
-                "Hikmahtul Ilmiah",
-                "Ika Budiastuti",
-                "Indah Mawardani",
-                "Kokoh Eko Saputro",
-                "Lutfia Ariani Kamu",
-                "M. Agung Setiawan",
-                "Moch. Abdul Kodir",
-                "Moh. Asifudin",
-                "Sri Palupi"
-            ],
-            "hanif": [
-                "Angrayni Wahyuning Pratiwi",
-                "Bismo Arsha Ardana Desponsa",
-                "Diky Aliffiyan Putra",
-                "Hendrata Diki Dwi Yulian",
-                "Ifada Umardhani",
-                "Khafif Fatkhurrozi",
-                "M. Rifki Sahyudi",
-                "Muhammad Cahya Diwangkara",
-                "Pandya Maheswara",
-                "Satria Jaya Purnama",
-                "Satria Wibowo",
-                "Tegar Adiyoga"
-            ],
-            "rizky": [
-                "Agus Arfandik",
-                "Choirul Iksan",
-                "Dava Syah Jaya Mulya",
-                "Fajar Salim",
-                "Habib Muhammad",
-                "Mohamad Andik Priyono",
-                "Muchamad Aditya Nur Iman",
-                "Oky Panji Pramono",
-                "Rezky Achmadi Sholeh",
-                "Selamet Cahyono"
-            ]
+            "brian": ["Aditya Permadi", "Andhika Duta Nusantara", "Andika Wisnu Putra Pradana", "Bagas Tri Kusumawardana", "Gilang Ardianta Mahesa", "Indah Novitasari", "Moh. Heru Aprijanto", "Rahmad Hidayat", "Rian Pratama", "Risma Septiowati", "Rizky Cahya Adhitama", "Rizky Faza Ramadhan", "Yogsy Tri Pamungkas"],
+            "didik": ["Ainur Rohman", "Aprilia Eka Saputra", "Dony Irwanto", "Farit Efendie", "Kuntoro", "Michael Rahardjo", "Mochamad Alfan Aminulloh", "Moh. Asifudin", "Muhammad Abdul Ghofur", "Muhammad Mauluddin", "Muhammad Refa Putra", "Rizky Mawardi Nugraha"],
+            "muiz": ["Adi Gunawan", "Amanda Krista Dewi", "Anasrul Mahendra Wahyuda", "Hikmahtul Ilmiah", "Ika Budiastuti", "Indah Mawardani", "Kokoh Eko Saputro", "Lutfia Ariani Kamu", "M. Agung Setiawan", "Moch. Abdul Kodir", "Moh. Asifudin", "Sri Palupi"],
+            "hanif": ["Angrayni Wahyuning Pratiwi", "Bismo Arsha Ardana Desponsa", "Diky Aliffiyan Putra", "Hendrata Diki Dwi Yulian", "Ifada Umardhani", "Khafif Fatkhurrozi", "M. Rifki Sahyudi", "Muhammad Cahya Diwangkara", "Pandya Maheswara", "Satria Jaya Purnama", "Satria Wibowo", "Tegar Adiyoga"],
+            "rizky": ["Agus Arfandik", "Choirul Iksan", "Dava Syah Jaya Mulya", "Fajar Salim", "Habib Muhammad", "Mohamad Andik Priyono", "Muchamad Aditya Nur Iman", "Oky Panji Pramono", "Rezky Achmadi Sholeh", "Selamet Cahyono"]
         };
 
         function toggleSales(spvId) {
             const salesContainer = document.getElementById(`sales-${spvId}`);
-            
             document.querySelectorAll('[id^="sales-"]').forEach(el => {
-                if (el.id !== `sales-${spvId}`) {
-                    el.classList.add('hidden');
-                }
+                if (el.id !== `sales-${spvId}`) el.classList.add('hidden');
             });
-
             if (salesContainer.classList.contains('hidden')) {
                 salesContainer.classList.remove('hidden');
-                
                 const ulList = salesContainer.querySelector('ul');
                 if (ulList.children.length === 0 && timSalesData[spvId]) {
                     timSalesData[spvId].forEach(namaSales => {
@@ -1375,133 +1350,180 @@
         }
 
         const clusterData = {
-            "Kec. Sooko": [
-                "Desa Gemekan", "Desa Jampirogo", "Desa Japan", "Graha Japan Asri", 
-                "Desa Klinterejo", "Desa Sambiroto", "Desa Sooko", "Wisma Sooko Indah"
-            ],
-            "Kec. Puri": [
-                "Desa Banjaragung", "Desa Brayung", "Desa Kenanten", "Griya Arsy Mansion", 
-                "Desa Medali", "Desa Tambak Agung", "Dusun Sawurkembang", "Perum Puri Diamond", 
-                "Perum Wikarsa Sejahtera", "Perum Graha Permata Agung", "Perum Puri Majapahit"
-            ],
-            "Kec. Mojoanyar": [
-                "Bumi Jabon Estate", "Desa Gayaman", "Desa Jabon", "Desa Wunut", 
-                "Graha Majapahit", "Taman Majapahit Firdaus Regency"
-            ],
-            "Kec. Bangsal": [
-                "Desa Ngastemi", "Desa Pancing", "Desa Pekuwon", "Desa Salen", 
-                "Desa Mojotamping", "Perum Graha Bhinneka Fortuna"
-            ],
-            "Kec. Mojosari": [
-                "Desa Belahan Tengah", "Desa Jolangan", "Desa Kebon Dalem", "Desa Randubango", 
-                "Desa Menanggal", "Desa Modopuro", "Desa Pekukuhan", "Desa Seduri", 
-                "Desa Sumbertanggul", "Kelurahan Sarirejo", "Perum Ahsana Modern Mojosari", 
-                "Perum Griya Pekukuhan Asri", "Perum Graha Menanggal Indah", "Perum Griya Nanggal Asri", 
-                "Perum Menanggal Indah", "Perum Menanggal Residence", "Perum Rumahku Residence", "Perum Zian Istana Residence"
-            ],
-            "Kec. Kutorejo": [
-                "Desa Kepuhpandak", "Desa Pesanggrahan", "Desa Singowangi", "Desa Wonodadi", "Perum Permata Pesanggrahan"
-            ],
-            "Kec. Pungging": [
-                "Desa Balongmasin", "Desa Jabontegal", "Desa Jatilangkung", "Desa Watukenongo", 
-                "Desa Kembangringgit", "Desa Sekargadung", "Desa Tunggalpager", "Desa Mojorejo", 
-                "Grand Panjer Regency", "Wisma Pungging Permai"
-            ],
-            "Kec. Ngoro": [
-                "Desa Ngoro", "Desa Jasem", "Desa Candiharjo", "Perum Baiti Jannati", 
-                "Desa Sedati", "Desa Wonosari", "Perum Griya Wonosari Indah", "Desa Watesnegoro"
-            ]
+            "Kec. Sooko": ["Desa Gemekan", "Desa Jampirogo", "Desa Japan", "Graha Japan Asri", "Desa Klinterejo", "Desa Sambiroto", "Desa Sooko", "Wisma Sooko Indah"],
+            "Kec. Puri": ["Desa Banjaragung", "Desa Brayung", "Desa Kenanten", "Griya Arsy Mansion", "Desa Medali", "Desa Tambak Agung", "Dusun Sawurkembang", "Perum Puri Diamond", "Perum Wikarsa Sejahtera", "Perum Graha Permata Agung", "Perum Puri Majapahit"],
+            "Kec. Mojoanyar": ["Bumi Jabon Estate", "Desa Gayaman", "Desa Jabon", "Desa Wunut", "Graha Majapahit", "Taman Majapahit Firdaus Regency"],
+            "Kec. Bangsal": ["Desa Ngastemi", "Desa Pancing", "Desa Pekuwon", "Desa Salen", "Desa Mojotamping", "Perum Graha Bhinneka Fortuna"],
+            "Kec. Mojosari": ["Desa Belahan Tengah", "Desa Jolangan", "Desa Kebon Dalem", "Desa Randubango", "Desa Menanggal", "Desa Modopuro", "Desa Pekukuhan", "Desa Seduri", "Desa Sumbertanggul", "Kelurahan Sarirejo", "Perum Ahsana Modern Mojosari", "Perum Griya Pekukuhan Asri", "Perum Graha Menanggal Indah", "Perum Griya Nanggal Asri", "Perum Menanggal Indah", "Perum Menanggal Residence", "Perum Rumahku Residence", "Perum Zian Istana Residence"],
+            "Kec. Kutorejo": ["Desa Kepuhpandak", "Desa Pesanggrahan", "Desa Singowangi", "Desa Wonodadi", "Perum Permata Pesanggrahan"],
+            "Kec. Pungging": ["Desa Balongmasin", "Desa Jabontegal", "Desa Jatilangkung", "Desa Watukenongo", "Desa Kembangringgit", "Desa Sekargadung", "Desa Tunggalpager", "Desa Mojorejo", "Grand Panjer Regency", "Wisma Pungging Permai"],
+            "Kec. Ngoro": ["Desa Ngoro", "Desa Jasem", "Desa Candiharjo", "Perum Baiti Jannati", "Desa Sedati", "Desa Wonosari", "Perum Griya Wonosari Indah", "Desa Watesnegoro"]
         };
 
         document.addEventListener('DOMContentLoaded', function() {
-            AOS.init({ 
-                once: true, 
-                offset: 30,
-                duration: 700,
-                easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
-            });
+            AOS.init({ once: true, offset: 30, duration: 700 });
+            
+            const mobileMenu = document.getElementById('mobile-menu');
+            const pcBtn = document.getElementById('pc-menu-button');
+            const mobileBtn = document.getElementById('mobile-menu-button');
 
-            const btn = document.getElementById('mobile-menu-button');
-            const menu = document.getElementById('mobile-menu');
-            const links = document.querySelectorAll('.mobile-link');
+            function toggleMenu() {
+                mobileMenu.classList.toggle('hidden');
+            }
 
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-                const icon = btn.querySelector('i');
-                if (menu.classList.contains('hidden')) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                } else {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                }
-            });
-
-            links.forEach(link => link.addEventListener('click', () => {
-                menu.classList.add('hidden');
-                const icon = btn.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }));
+            if(pcBtn) pcBtn.addEventListener('click', toggleMenu);
+            if(mobileBtn) mobileBtn.addEventListener('click', toggleMenu);
         });
 
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const btn = document.getElementById('mobile-menu-button');
-            menu.classList.add('hidden');
-            const icon = btn.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        function openStrukturModal() {
+            document.getElementById('strukturModal').classList.remove('hidden');
+        }
+        function closeStrukturModal() {
+            document.getElementById('strukturModal').classList.add('hidden');
+        }
+
+        function openDokumentasiModal() {
+            document.getElementById('dokumentasiModal').classList.remove('hidden');
+        }
+        function closeDokumentasiModal() {
+            document.getElementById('dokumentasiModal').classList.add('hidden');
+        }
+
+        function openTestimoniModal() {
+            document.getElementById('testimoniModal').classList.remove('hidden');
+        }
+        function closeTestimoniModal() {
+            document.getElementById('testimoniModal').classList.add('hidden');
+        }
+
+        function openFwaModal() {
+            document.getElementById('fwaModal').classList.remove('hidden');
+        }
+        function closeFwaModal() {
+            document.getElementById('fwaModal').classList.add('hidden');
         }
 
         function filterCluster() {
             const input = document.getElementById('searchCluster').value.toLowerCase();
             const cards = document.querySelectorAll('.cluster-card');
             let foundCount = 0;
-
             cards.forEach(card => {
-                const text = card.innerText.toLowerCase();
-                if (text.includes(input)) {
+                if (card.innerText.toLowerCase().includes(input)) {
                     card.style.display = 'flex';
                     foundCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
+            document.getElementById('noResult').classList.toggle('hidden', foundCount > 0);
+        }
 
-            const noResult = document.getElementById('noResult');
-            if (foundCount === 0) {
-                noResult.classList.remove('hidden');
-            } else {
-                noResult.classList.add('hidden');
+        function filterDokumentasi(kategori) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-[#002dbb]', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+            });
+            const activeBtn = document.getElementById(`btn-${kategori}`);
+            if(activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+                activeBtn.classList.add('bg-[#002dbb]', 'text-white');
             }
+
+            const items = document.querySelectorAll('#dokumentasiModal .dok-item');
+            items.forEach(item => {
+                const match = (kategori === 'semua' || item.getAttribute('data-category') === kategori);
+                if(match) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        if(item.style.opacity === '0') item.style.display = 'none';
+                    }, 300);
+                }
+            });
         }
 
         function openModal(kategori, defaultKec = '') {
             currentKategori = kategori;
             const isPelamar = kategori.includes('Kandidat');
+            const isGangguan = kategori.includes('Gangguan');
             
-            document.getElementById('modalTitle').innerText = isPelamar ? 'Formulir Kirim Lamaran' : 'Formulir Cek Lokasi Pelanggan';
-            document.getElementById('modalSubtitle').innerText = isPelamar ? 'Lengkapi data diri Anda, lalu kirim langsung ke WhatsApp.' : 'Pilih kecamatan dan desa/perumahan Anda untuk pengecekan jaringan.';
-            
-            document.getElementById('labelWilayah').innerText = isPelamar ? 'Posisi yang Dilamar' : 'Pilih Kecamatan';
-            document.getElementById('labelSubWilayah').style.display = isPelamar ? 'none' : 'block';
-            document.getElementById('inputDesa').style.display = isPelamar ? 'none' : 'block';
+            document.getElementById('modalTitle').innerText = isGangguan ? 'Formulir Laporan Gangguan WiFi' : (isPelamar ? 'Formulir Kirim Lamaran' : 'Formulir Cek Lokasi Pelanggan');
+            document.getElementById('modalSubtitle').innerText = isGangguan ? 'Laporkan kendala atau gangguan jaringan Anda kepada tim Troubleshoot.' : (isPelamar ? 'Lengkapi data diri Anda.' : 'Pilih kecamatan dan desa/perumahan Anda.');
             
             const idPelangganWrapper = document.getElementById('idPelangganWrapper');
-            idPelangganWrapper.style.display = isPelamar ? 'none' : 'block';
-
-            const selectKecamatan = document.getElementById('inputKecamatan');
-            selectKecamatan.innerHTML = ''; 
-
-            if (isPelamar) {
-                let opt = document.createElement('option');
-                opt.value = 'Direct Sales Agent (DSA)';
-                opt.textContent = 'Direct Sales Agent (DSA)';
-                selectKecamatan.appendChild(opt);
-                document.getElementById('labelSubWilayah').style.display = 'none';
-                document.getElementById('inputDesa').style.display = 'none';
+            const wilayahWrapper = document.getElementById('kecamatanWrapper');
+            const subWilayahWrapper = document.getElementById('desaWrapper');
+            const kabupatenWrapper = document.getElementById('kabupatenWrapper');
+            const warnaBlokWrapper = document.getElementById('warnaBlokWrapper');
+            const gpsWrapper = document.getElementById('gpsWrapper');
+            const pendidikanWrapper = document.getElementById('pendidikanWrapper');
+            const pengalamanSalesWrapper = document.getElementById('pengalamanSalesWrapper');
+            const alamatTextarea = document.getElementById('inputKeterangan');
+            
+            if (isGangguan) {
+                idPelangganWrapper.style.display = 'block';
+                wilayahWrapper.style.display = 'none';
+                subWilayahWrapper.style.display = 'none';
+                kabupatenWrapper.style.display = 'none';
+                warnaBlokWrapper.style.display = 'none';
+                gpsWrapper.style.display = 'block';
+                pendidikanWrapper.style.display = 'none';
+                pengalamanSalesWrapper.style.display = 'none';
+                
+                document.getElementById('inputIdPelanggan').setAttribute('required', 'true');
+                document.getElementById('labelIdPelanggan').innerText = 'ID Pelanggan Resmi (Wajib diisi untuk laporan gangguan)';
+                document.getElementById('labelKeterangan').innerText = 'Detail Alamat Rumah';
+                alamatTextarea.placeholder = 'Contoh: RT 02 / RW 01, No. 45...';
+                
+                document.getElementById('kendalaWrapper').classList.remove('hidden');
+                document.getElementById('inputKendala').setAttribute('required', 'true');
+            } else if (isPelamar) {
+                idPelangganWrapper.style.display = 'none';
+                wilayahWrapper.style.display = 'none';
+                subWilayahWrapper.style.display = 'none';
+                kabupatenWrapper.style.display = 'none';
+                warnaBlokWrapper.style.display = 'none';
+                gpsWrapper.style.display = 'none';
+                pendidikanWrapper.style.display = 'block';
+                pengalamanSalesWrapper.style.display = 'block';
+                
+                document.getElementById('inputPendidikan').setAttribute('required', 'true');
+                document.getElementById('inputPengalamanSales').setAttribute('required', 'true');
+                
+                document.getElementById('labelKeterangan').innerText = 'Keterangan Tambahan / Pengalaman Kerja Lainnya';
+                alamatTextarea.placeholder = 'Tuliskan pengalaman kerja atau keahlian pendukung lainnya...';
+                document.getElementById('kendalaWrapper').classList.add('hidden');
+                document.getElementById('inputKendala').removeAttribute('required');
             } else {
+                idPelangganWrapper.style.display = 'none'; 
+                wilayahWrapper.style.display = 'block';
+                subWilayahWrapper.style.display = 'block';
+                kabupatenWrapper.style.display = 'block';
+                warnaBlokWrapper.style.display = 'block';
+                gpsWrapper.style.display = 'block';
+                pendidikanWrapper.style.display = 'none';
+                pengalamanSalesWrapper.style.display = 'none';
+                
+                document.getElementById('inputPendidikan').removeAttribute('required');
+                document.getElementById('inputPengalamanSales').removeAttribute('required');
+                
+                document.getElementById('labelKeterangan').innerText = 'Detail Alamat / Nomor Rumah';
+                alamatTextarea.placeholder = 'Contoh: RT 02 / RW 01, No. 45...';
+                document.getElementById('kendalaWrapper').classList.add('hidden');
+                document.getElementById('inputKendala').removeAttribute('required');
+                
+                const selectKecamatan = document.getElementById('inputKecamatan');
                 selectKecamatan.innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
                 Object.keys(clusterData).forEach(kec => {
                     let opt = document.createElement('option');
@@ -1509,12 +1531,9 @@
                     opt.textContent = kec;
                     selectKecamatan.appendChild(opt);
                 });
-
                 if (defaultKec) {
                     selectKecamatan.value = defaultKec;
                     updateDesaOptions();
-                } else {
-                    document.getElementById('inputDesa').innerHTML = '<option value="">-- Pilih Kecamatan Terlebih Dahulu --</option>';
                 }
             }
 
@@ -1524,67 +1543,36 @@
         function updateDesaOptions() {
             const selectedKec = document.getElementById('inputKecamatan').value;
             const selectDesa = document.getElementById('inputDesa');
-            selectDesa.innerHTML = '';
-
+            selectDesa.innerHTML = '<option value="">-- Pilih Desa / Perumahan --</option>';
             if (selectedKec && clusterData[selectedKec]) {
-                let defaultOpt = document.createElement('option');
-                defaultOpt.value = '';
-                defaultOpt.textContent = '-- Pilih Desa / Perumahan --';
-                selectDesa.appendChild(defaultOpt);
-
                 clusterData[selectedKec].forEach(desa => {
                     let opt = document.createElement('option');
                     opt.value = desa;
                     opt.textContent = desa;
                     selectDesa.appendChild(opt);
                 });
-            } else {
-                let opt = document.createElement('option');
-                opt.value = '';
-                opt.textContent = '-- Pilih Kecamatan Terlebih Dahulu --';
-                selectDesa.appendChild(opt);
             }
         }
 
         function getGPSLocation() {
             const statusText = document.getElementById('gpsStatus');
-            const textarea = document.getElementById('inputKeterangan');
-
+            const alamatTextarea = document.getElementById('inputKeterangan');
             if (!navigator.geolocation) {
-                statusText.innerHTML = '<span class="text-red-500">❌ Geolocation tidak didukung oleh browser Anda.</span>';
+                statusText.innerHTML = '<span class="text-red-500">❌ Geolocation tidak didukung.</span>';
                 return;
             }
-
-            statusText.innerHTML = '<span class="text-blue-600">⏳ Sedang mendeteksi titik koordinat GPS perangkat Anda...</span>';
-
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-                    const mapsLink = `https://maps.google.com/?q=${lat},${lng}`;
-                    
-                    const currentVal = textarea.value.trim();
-                    textarea.value = currentVal ? `${currentVal} | Sharelock GPS: ${mapsLink}` : `Sharelock GPS: ${mapsLink}`;
-                    
-                    statusText.innerHTML = '<span class="text-emerald-600 font-semibold">✅ Koordinat GPS berhasil ditambahkan ke detail alamat!</span>';
-                },
-                (error) => {
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            statusText.innerHTML = '<span class="text-red-500">❌ Izin lokasi ditolak. Harap aktifkan izin lokasi browser.</span>';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            statusText.innerHTML = '<span class="text-red-500">❌ Informasi lokasi tidak tersedia.</span>';
-                            break;
-                        case error.TIMEOUT:
-                            statusText.innerHTML = '<span class="text-red-500">❌ Waktu permintaan lokasi habis.</span>';
-                            break;
-                        default:
-                            statusText.innerHTML = '<span class="text-red-500">❌ Gagal mendeteksi lokasi.</span>';
-                    }
-                },
-                { timeout: 10000, enableHighAccuracy: true }
-            );
+            statusText.innerHTML = '<span class="text-blue-600">⏳ Mendeteksi GPS...</span>';
+            navigator.geolocation.getCurrentPosition((pos) => {
+                const mapsLink = `https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                if (!alamatTextarea.value.includes('Sharelock GPS:')) {
+                    alamatTextarea.value += ` | Sharelock GPS: ${mapsLink}`;
+                } else {
+                    alamatTextarea.value = alamatTextarea.value.replace(/\| Sharelock GPS: .*/, `| Sharelock GPS: ${mapsLink}`);
+                }
+                statusText.innerHTML = '<span class="text-emerald-600 font-semibold">✅ GPS Berhasil Dimasukkan ke Alamat!</span>';
+            }, () => {
+                statusText.innerHTML = '<span class="text-red-500">❌ Gagal mendeteksi lokasi.</span>';
+            });
         }
 
         function closeModal() {
@@ -1593,123 +1581,89 @@
 
         async function submitForm(e) {
             e.preventDefault();
-            
             const form = e.target;
             const formData = new FormData(form);
             
             const nama = document.getElementById('inputNama').value;
             const whatsapp = document.getElementById('inputWa').value;
-            const idPelanggan = document.getElementById('inputIdPelanggan') ? document.getElementById('inputIdPelanggan').value.trim() : '';
+            const idPelanggan = document.getElementById('inputIdPelanggan').value.trim();
             const kecamatan = document.getElementById('inputKecamatan').value;
-            const desa = document.getElementById('inputDesa') ? document.getElementById('inputDesa').value : '';
-            const keterangan = document.getElementById('inputKeterangan').value;
-            const warnaBlok = document.getElementById('inputWarnaBlok').value;
+            const desa = document.getElementById('inputDesa').value;
+            const alamat = document.getElementById('inputKeterangan').value;
+            const kendala = document.getElementById('inputKendala').value;
+            const pendidikan = document.getElementById('inputPendidikan').value;
+            const pengalamanSales = document.getElementById('inputPengalamanSales').value;
             
             const isPelamar = currentKategori.includes('Kandidat');
+            const isGangguan = currentKategori.includes('Gangguan');
             
-            // Pembuatan kode unik otomatis
             const randomString = Math.random().toString(36).substring(2, 7).toUpperCase();
-            const uniqueCode = isPelamar ? `JOB-${randomString}` : `CUS-${randomString}`;
+            let uniqueCode = `CUS-${randomString}`;
+            let targetWa = "6285974511215"; 
+            
+            if (isPelamar) {
+                uniqueCode = `JOB-${randomString}`;
+            } else if (isGangguan) {
+                uniqueCode = `GANGGUAN-${randomString}`;
+                targetWa = "6281952844513"; 
+            }
             
             formData.append('Kode_Unik', uniqueCode);
 
-            // 1. Kirim data ke Formspree di background
             try {
-                await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
+                await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
             } catch (error) {
                 console.error('Gagal mengirim ke Formspree:', error);
             }
 
-            // 2. Susun pesan WhatsApp
             let pesan = "";
-            if (isPelamar) {
+            if (isGangguan) {
+                pesan = `🚨 *LAPORAN GANGGUAN / KENDALA* 🚨\n` +
+                        `🔑 *Kode Unik:* #${uniqueCode}\n\n` +
+                        `🆔 *ID Pelanggan:* ${idPelanggan}\n` +
+                        `👤 *Nama:* ${nama}\n` +
+                        `📞 *No WA:* ${whatsapp}\n` +
+                        `⚠️ *Kendala:* ${kendala}\n` +
+                        `🏠 *Alamat & GPS:* ${alamat}\n\n` +
+                        `_Halo Admin Troubleshoot, mohon bantuan pengecekan jaringan di rumah saya. Terima kasih!_`;
+            } else if (isPelamar) {
                 pesan = `✨ *PENGAJUAN LAMARAN KERJA* ✨\n` +
                         `🔑 *Kode Unik:* #${uniqueCode}\n\n` +
                         `📌 *Posisi:* ${currentKategori}\n` +
                         `👤 *Nama:* ${nama}\n` +
                         `📞 *No WA:* ${whatsapp}\n` +
-                        `📍 *Penempatan:* ${kecamatan}, KAB. MOJOKERTO\n` +
-                        `💼 *Pengalaman:* ${keterangan}\n\n` +
-                        `_Halo Admin, saya berminat bergabung. CV lengkap akan saya kirimkan melalui chat ini. Terima kasih!_`;
+                        `🎓 *Pendidikan Terakhir:* ${pendidikan}\n` +
+                        `💼 *Pengalaman Sales/Marketing:* ${pengalamanSales}\n` +
+                        `📝 *Keterangan Tambahan:* ${alamat}\n\n` +
+                        `_Halo Admin, saya berminat bergabung. Terima kasih!_`;
             } else {
-                const idText = idPelanggan ? idPelanggan : '- (Baru / Belum ada)';
                 pesan = `🔍 *PERMINTAAN CEK LOKASI WIFI* 🔍\n` +
                         `🔑 *Kode Unik:* #${uniqueCode}\n\n` +
                         `📦 *Paket:* ${currentKategori}\n` +
-                        `🆔 *ID Pelanggan:* ${idText}\n` +
                         `👤 *Nama:* ${nama}\n` +
                         `📞 *No WA:* ${whatsapp}\n` +
                         `📍 *Kecamatan:* ${kecamatan}\n` +
                         `🏘️ *Desa/Perumahan:* ${desa}\n` +
-                        `🏠 *Detail Alamat / No Rumah:* ${keterangan}\n` +
-                        `🎨 *Warna Rumah / Blok:* ${warnaBlok}\n\n` +
-                        `_Halo Admin, mohon bantuan untuk pengecekan jaringan di lokasi saya. Terima kasih!_`;
+                        `🏠 *Alamat & GPS:* ${alamat}\n\n` +
+                        `_Halo Admin, mohon bantuan cek lokasi. Terima kasih!_`;
             }
             
-            // Buka WhatsApp Admin
-            window.open(`https://wa.me/6285974511215?text=${encodeURIComponent(pesan)}`, '_blank');
-            
+            window.open(`https://wa.me/${targetWa}?text=${encodeURIComponent(pesan)}`, '_blank');
             form.reset();
             closeModal();
         }
 
         function openShareModal() {
             document.getElementById('shareModal').classList.remove('hidden');
-            
             if (!qrGenerated) {
-                document.getElementById('qrcode').innerHTML = "";
-                new QRCode(document.getElementById("qrcode"), {
-                    text: LIVE_URL,
-                    width: 150,
-                    height: 150,
-                    colorDark: "#002dbb",
-                    colorLight: "#ffffff",
-                    correctLevel: QRCode.CorrectLevel.H
-                });
+                new QRCode(document.getElementById("qrcode"), { text: LIVE_URL, width: 150, height: 150 });
                 qrGenerated = true;
             }
-
-            const waText = `Halo! Yuk cek info paket internet rumah super cepat dan stabil dari XL SATU Mojokerto di sini:\n\n${LIVE_URL}`;
-            document.getElementById('shareWaBtn').href = `https://wa.me/?text=${encodeURIComponent(waText)}`;
+            document.getElementById('shareWaBtn').href = `https://wa.me/?text=${encodeURIComponent("Cek info paket internet XL Satu Mojokerto di sini:\n\n" + LIVE_URL)}`;
         }
-
-        function closeShareModal() {
-            document.getElementById('shareModal').classList.add('hidden');
-        }
-
+        function closeShareModal() { document.getElementById('shareModal').classList.add('hidden'); }
         function copyWebsiteLink() {
-            navigator.clipboard.writeText(LIVE_URL).then(() => {
-                alert("Tautan website berhasil disalin! Silakan tempel (paste) di WhatsApp atau sosmed.");
-            }).catch(err => {
-                console.error('Gagal menyalin:', err);
-            });
-        }
-
-        function filterGallery(category, event) {
-            const items = document.querySelectorAll('.gallery-item');
-            const buttons = document.querySelectorAll('.gallery-filter-btn');
-
-            buttons.forEach(btn => {
-                btn.classList.remove('bg-[#002dbb]', 'text-white', 'shadow-sm');
-                btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
-            });
-
-            event.target.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
-            event.target.classList.add('bg-[#002dbb]', 'text-white', 'shadow-sm');
-
-            items.forEach(item => {
-                if (category === 'all' || item.classList.contains(category)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+            navigator.clipboard.writeText(LIVE_URL).then(() => alert("Tautan berhasil disalin!"));
         }
     </script>
 </body>
