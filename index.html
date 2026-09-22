@@ -16,49 +16,83 @@
         
         .glass-nav {
             background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(226, 232, 240, 0.8);
         }
         .hero-gradient {
             background: linear-gradient(135deg, #002dbb 0%, #001a70 100%);
+            position: relative;
         }
         
-        /* Kartu Card Hover dengan Animasi Halus */
+        /* 1. KARTU LEBIH ELEGAN (SMOOTH LIFT & GLOW) */
         .card-hover {
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .card-hover:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 25px 30px -10px rgba(0, 45, 187, 0.18), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(-10px) scale(1.015);
+            box-shadow: 0 30px 40px -12px rgba(0, 45, 187, 0.2), 0 10px 15px -5px rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 45, 187, 0.3);
+            z-index: 10;
         }
 
-        /* Animasi WhatsApp Berdenyut dan Melayang */
+        /* 2. ANIMASI WHATSAPP BERDENYUT (RIPPLE EFFECT) */
         @keyframes pulse-wa {
-            0% { transform: scale(1) translateY(0); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            50% { transform: scale(1.08) translateY(-4px); box-shadow: 0 0 0 18px rgba(37, 211, 102, 0); }
+            0% { transform: scale(1) translateY(0); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); }
+            50% { transform: scale(1.1) translateY(-6px); box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
             100% { transform: scale(1) translateY(0); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
         .whatsapp-float {
-            animation: pulse-wa 2.5s infinite ease-in-out;
-            transition: transform 0.3s ease;
+            animation: pulse-wa 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .whatsapp-float:hover {
-            transform: scale(1.15) rotate(10deg);
+            animation-play-state: paused;
+            transform: scale(1.2) rotate(12deg);
+            box-shadow: 0 15px 25px rgba(37, 211, 102, 0.5);
         }
 
-        /* Animasi Tombol Mengkilap / Glowing */
+        /* 3. ANIMASI TOMBOL MENGKILAP / GLOWING & SHINE */
         .btn-glow {
-            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 3.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes shine {
+            0% { left: -150%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
         }
         .btn-glow:hover {
-            box-shadow: 0 0 25px rgba(178, 255, 5, 0.6);
-            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(178, 255, 5, 0.7);
+            transform: translateY(-3px) scale(1.02);
         }
 
-        /* Animasi Icon Berputar Halus saat Hover */
+        /* 4. ANIMASI ICON BERPUTAR HALUS SAAT HOVER */
         .hover-icon-spin:hover i {
-            transform: rotate(360deg);
-            transition: transform 0.6s ease;
+            transform: rotate(360deg) scale(1.15);
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .hover-icon-spin i {
+            transition: transform 0.5s ease-out;
+        }
+
+        /* 5. EFEK MENGAMBANG (FLOAT) HALUS */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float-custom {
+            animation: float 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
     </style>
 </head>
@@ -72,7 +106,7 @@
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center" data-aos="fade-down" data-aos-duration="800">
                     <a href="#beranda" class="flex items-center gap-2 group">
-                        <span class="text-2xl font-extrabold tracking-tight text-[#002dbb] group-hover:scale-105 transition">XL <span class="text-emerald-500">satu</span></span>
+                        <span class="text-2xl font-extrabold tracking-tight text-[#002dbb] group-hover:scale-105 transition duration-300">XL <span class="text-emerald-500">satu</span></span>
                         <span class="text-sm font-semibold text-slate-600 border-l border-slate-300 pl-2">Mojokerto</span>
                     </a>
                 </div>
@@ -87,7 +121,7 @@
                     <a href="#testimoni" class="text-slate-600 hover:text-[#002dbb] font-medium transition hover:-translate-y-0.5">Testimoni</a>
                     <a href="#karir" class="text-slate-600 hover:text-[#002dbb] font-medium transition hover:-translate-y-0.5">Lowongan Kerja</a>
                     <a href="#tim" class="text-slate-600 hover:text-[#002dbb] font-medium transition hover:-translate-y-0.5">Profil Tim</a>
-                    <button onclick="openShareModal()" class="bg-emerald-500 text-white px-4 py-2 rounded-full font-medium hover:bg-emerald-600 transition shadow-md flex items-center gap-2 text-sm">
+                    <button onclick="openShareModal()" class="btn-glow bg-emerald-500 text-white px-4 py-2 rounded-full font-medium transition shadow-md flex items-center gap-2 text-sm">
                         <i class="fas fa-share-alt"></i> Bagikan Web
                     </button>
                 </div>
@@ -142,7 +176,7 @@
     </nav>
 
     <!-- Tombol WhatsApp Mengambang dengan Animasi Denyut -->
-    <a href="https://wa.me/6285974511215?text=Halo,%20saya%20ingin%20tanya%20tentang%20pemasangan%20XL%20SATU%20Mojokerto." target="_blank" rel="noopener noreferrer" class="whatsapp-float fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-[#20ba5a]" title="Hubungi Admin via WhatsApp">
+    <a href="https://wa.me/6285974511215?text=Halo,%20saya%20ingin%20tanya%20tentang%20pemasangan%20XL%20SATU%20Mojokerto." target="_blank" rel="noopener noreferrer" class="whatsapp-float fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl" title="Hubungi Admin via WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -153,7 +187,7 @@
         <div class="absolute inset-0 bg-[url('https://placehold.co/1920x1080/001a70/002dbb?text=Pattern')] opacity-10 bg-cover bg-center"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" data-aos="zoom-in" data-aos-duration="1000">
             <div class="text-center max-w-3xl mx-auto">
-                <span class="inline-block bg-white/15 backdrop-blur-md text-[#b2ff05] px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 border border-white/25 animate-pulse">
+                <span class="inline-block bg-white/15 backdrop-blur-md text-[#b2ff05] px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 border border-white/25 animate-float-custom">
                     ✨ Wilayah Jangkauan Luas & Stabil di Mojokerto
                 </span>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
@@ -162,7 +196,7 @@
                 <p class="text-lg md:text-xl text-blue-100 mb-10 leading-relaxed">
                     Nikmati koneksi internet fiber optic tanpa batas kuota dengan hiburan kelas dunia. Pilihan tepat untuk produktivitas dan hiburan di rumah Anda.
                 </p>
-                <a href="#paket" class="inline-block bg-[#b2ff05] text-[#002dbb] px-8 py-4 rounded-full font-bold text-lg btn-glow hover:bg-white transition-all">
+                <a href="#paket" class="inline-block bg-[#b2ff05] text-[#002dbb] px-8 py-4 rounded-full font-bold text-lg btn-glow transition-all">
                     Lihat Paket Kami <i class="fas fa-arrow-down ml-2 animate-bounce"></i>
                 </a>
             </div>
@@ -179,31 +213,31 @@
                 <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-12">Internet Rumah Unlimited dari XL SATU</h2>
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center card-hover hover-icon-spin" data-aos="fade-up" data-aos-delay="100">
-                        <div class="w-16 h-16 bg-blue-50 text-[#002dbb] rounded-2xl flex items-center justify-center text-2xl mb-4">
+                        <div class="w-16 h-16 bg-blue-50 text-[#002dbb] rounded-2xl flex items-center justify-center text-2xl mb-4 transition-colors">
                             <i class="fas fa-network-wired"></i>
                         </div>
                         <h4 class="font-bold text-slate-800 text-sm">Fiber Optic</h4>
                     </div>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center card-hover hover-icon-spin" data-aos="fade-up" data-aos-delay="200">
-                        <div class="w-16 h-16 bg-blue-50 text-[#002dbb] rounded-2xl flex items-center justify-center text-2xl mb-4">
+                        <div class="w-16 h-16 bg-blue-50 text-[#002dbb] rounded-2xl flex items-center justify-center text-2xl mb-4 transition-colors">
                             <i class="fas fa-wifi"></i>
                         </div>
                         <h4 class="font-bold text-slate-800 text-sm">WiFi Unlimited</h4>
                     </div>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center card-hover hover-icon-spin" data-aos="fade-up" data-aos-delay="300">
-                        <div class="w-16 h-16 bg-blue-50 text-[#002dbb] rounded-2xl flex items-center justify-center text-2xl mb-4">
+                        <div class="w-16 h-16 bg-blue-50 text-[#002dbb] rounded-2xl flex items-center justify-center text-2xl mb-4 transition-colors">
                             <i class="fas fa-users"></i>
                         </div>
                         <h4 class="font-bold text-slate-800 text-sm">Kuota HP Sekeluarga</h4>
                     </div>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center card-hover hover-icon-spin" data-aos="fade-up" data-aos-delay="400">
-                        <div class="w-16 h-16 bg-blue-50 text-[#002dbb] rounded-2xl flex items-center justify-center text-2xl mb-4">
+                        <div class="w-16 h-16 bg-blue-50 text-[#002dbb] rounded-2xl flex items-center justify-center text-2xl mb-4 transition-colors">
                             <i class="fas fa-file-invoice-dollar"></i>
                         </div>
                         <h4 class="font-bold text-slate-800 text-sm">SATU Tagihan</h4>
                     </div>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 col-span-2 md:col-span-1 flex flex-col items-center text-center card-hover hover-icon-spin" data-aos="fade-up" data-aos-delay="500">
-                        <div class="w-16 h-16 bg-blue-50 text-[#002dbb] rounded-2xl flex items-center justify-center text-2xl mb-4">
+                        <div class="w-16 h-16 bg-blue-50 text-[#002dbb] rounded-2xl flex items-center justify-center text-2xl mb-4 transition-colors">
                             <i class="fas fa-mobile-alt"></i>
                         </div>
                         <h4 class="font-bold text-slate-800 text-sm">SATU Aplikasi</h4>
@@ -236,8 +270,12 @@
                             <span class="h-2 flex-1 bg-slate-200 rounded-full"></span>
                             <span class="h-2 flex-1 bg-slate-200 rounded-full"></span>
                         </div>
-                        <div class="text-xs text-slate-600 mb-5">
-                            Kecepatan Internet dengan Speed Booster: <span class="font-bold text-[#002dbb] text-base">250 Mbps</span>
+                        <div class="text-xs text-slate-600 mb-5 flex items-center justify-between">
+                            <span class="leading-tight">Kecepatan Internet<br>dengan Speed Booster</span>
+                            <div class="text-right">
+                                <span class="line-through text-slate-400 mr-1 text-xs">100 Mbps</span>
+                                <span class="font-bold text-[#002dbb] text-base">250 Mbps</span>
+                            </div>
                         </div>
 
                         <div class="mb-5">
@@ -269,7 +307,7 @@
                             </div>
                             <p class="text-[11px] text-slate-400 mt-0.5">Harga sesudah PPN</p>
                         </div>
-                        <button onclick="openModal('Pelanggan - Cek Lokasi Paket 250 Mbps', 'Kec. Sooko')" class="block w-full py-3.5 px-4 bg-[#14397d] hover:bg-blue-900 text-white text-center rounded-xl font-semibold transition duration-300 shadow-md text-sm hover:scale-[1.02]">
+                        <button onclick="openModal('Pelanggan - Cek Lokasi Paket 250 Mbps', 'Kec. Sooko')" class="btn-glow block w-full py-3.5 px-4 bg-[#14397d] text-white text-center rounded-xl font-semibold shadow-md text-sm">
                             Saya Pilih Ini
                         </button>
                     </div>
@@ -289,8 +327,12 @@
                             <span class="h-2 flex-1 bg-slate-200 rounded-full"></span>
                             <span class="h-2 flex-1 bg-slate-200 rounded-full"></span>
                         </div>
-                        <div class="text-xs text-slate-600 mb-5">
-                            Kecepatan Internet dengan Speed Booster: <span class="font-bold text-[#002dbb] text-base">300 Mbps</span>
+                        <div class="text-xs text-slate-600 mb-5 flex items-center justify-between">
+                            <span class="leading-tight">Kecepatan Internet<br>dengan Speed Booster</span>
+                            <div class="text-right">
+                                <span class="line-through text-slate-400 mr-1 text-xs">200 Mbps</span>
+                                <span class="font-bold text-[#002dbb] text-base">300 Mbps</span>
+                            </div>
                         </div>
 
                         <div class="mb-5">
@@ -322,7 +364,7 @@
                             </div>
                             <p class="text-[11px] text-slate-400 mt-0.5">Harga sesudah PPN</p>
                         </div>
-                        <button onclick="openModal('Pelanggan - Cek Lokasi Paket 300 Mbps', 'Kec. Sooko')" class="block w-full py-3.5 px-4 bg-[#14397d] hover:bg-blue-900 text-white text-center rounded-xl font-semibold transition duration-300 shadow-md text-sm hover:scale-[1.02]">
+                        <button onclick="openModal('Pelanggan - Cek Lokasi Paket 300 Mbps', 'Kec. Sooko')" class="btn-glow block w-full py-3.5 px-4 bg-[#14397d] text-white text-center rounded-xl font-semibold shadow-md text-sm">
                             Saya Pilih Ini
                         </button>
                     </div>
@@ -342,8 +384,12 @@
                             <span class="h-2 flex-1 bg-emerald-500 rounded-full"></span>
                             <span class="h-2 flex-1 bg-emerald-400 rounded-full"></span>
                         </div>
-                        <div class="text-xs text-slate-600 mb-5">
-                            Kecepatan Internet dengan Speed Booster: <span class="font-bold text-[#002dbb] text-base">400 Mbps</span>
+                        <div class="text-xs text-slate-600 mb-5 flex items-center justify-between">
+                            <span class="leading-tight">Kecepatan Internet<br>dengan Speed Booster</span>
+                            <div class="text-right">
+                                <span class="line-through text-slate-400 mr-1 text-xs">300 Mbps</span>
+                                <span class="font-bold text-[#002dbb] text-base">400 Mbps</span>
+                            </div>
                         </div>
 
                         <div class="mb-5">
@@ -375,7 +421,7 @@
                             </div>
                             <p class="text-[11px] text-slate-400 mt-0.5">Harga sesudah PPN</p>
                         </div>
-                        <button onclick="openModal('Pelanggan - Cek Lokasi Paket 400 Mbps', 'Kec. Sooko')" class="block w-full py-3.5 px-4 bg-[#14397d] hover:bg-blue-900 text-white text-center rounded-xl font-semibold transition duration-300 shadow-md text-sm hover:scale-[1.02]">
+                        <button onclick="openModal('Pelanggan - Cek Lokasi Paket 400 Mbps', 'Kec. Sooko')" class="btn-glow block w-full py-3.5 px-4 bg-[#14397d] text-white text-center rounded-xl font-semibold shadow-md text-sm">
                             Saya Pilih Ini
                         </button>
                     </div>
@@ -395,8 +441,11 @@
                             <span class="h-2 flex-1 bg-emerald-500 rounded-full"></span>
                             <span class="h-2 flex-1 bg-emerald-400 rounded-full"></span>
                         </div>
-                        <div class="text-xs text-slate-600 mb-5">
-                            Kecepatan Internet: <span class="font-bold text-[#002dbb] text-base">500 Mbps</span>
+                        <div class="text-xs text-slate-600 mb-5 flex items-center justify-between">
+                            <span class="leading-tight">Kecepatan Internet</span>
+                            <div class="text-right">
+                                <span class="font-bold text-[#002dbb] text-base">500 Mbps</span>
+                            </div>
                         </div>
 
                         <div class="mb-5">
@@ -428,7 +477,7 @@
                             </div>
                             <p class="text-[11px] text-slate-400 mt-0.5">Harga sesudah PPN</p>
                         </div>
-                        <button onclick="openModal('Pelanggan - Cek Lokasi Paket 500 Mbps', 'Kec. Sooko')" class="block w-full py-3.5 px-4 bg-[#14397d] hover:bg-blue-900 text-white text-center rounded-xl font-semibold transition duration-300 shadow-md text-sm hover:scale-[1.02]">
+                        <button onclick="openModal('Pelanggan - Cek Lokasi Paket 500 Mbps', 'Kec. Sooko')" class="btn-glow block w-full py-3.5 px-4 bg-[#14397d] text-white text-center rounded-xl font-semibold shadow-md text-sm">
                             Saya Pilih Ini
                         </button>
                     </div>
@@ -480,7 +529,7 @@
                                 </div>
                                 <p class="text-[11px] text-slate-400 mt-0.5">Harga sesudah PPN</p>
                             </div>
-                            <button onclick="openModal('Pelanggan - Paket Tactical 20 Mbps + Kuota 8GB', 'Kec. Sooko')" class="block w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-center rounded-xl font-semibold transition duration-300 shadow-md text-sm hover:scale-[1.02]">
+                            <button onclick="openModal('Pelanggan - Paket Tactical 20 Mbps + Kuota 8GB', 'Kec. Sooko')" class="btn-glow block w-full py-3.5 px-4 bg-emerald-600 text-white text-center rounded-xl font-semibold shadow-md text-sm">
                                 Saya Pilih Ini
                             </button>
                         </div>
@@ -516,7 +565,7 @@
                                 </div>
                                 <p class="text-[11px] text-slate-400 mt-0.5">Harga sesudah PPN</p>
                             </div>
-                            <button onclick="openModal('Pelanggan - Paket Smart 50 (75 Mbps) + Kuota 10GB', 'Kec. Sooko')" class="block w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-center rounded-xl font-semibold transition duration-300 shadow-md text-sm hover:scale-[1.02]">
+                            <button onclick="openModal('Pelanggan - Paket Smart 50 (75 Mbps) + Kuota 10GB', 'Kec. Sooko')" class="btn-glow block w-full py-3.5 px-4 bg-emerald-600 text-white text-center rounded-xl font-semibold shadow-md text-sm">
                                 Saya Pilih Ini
                             </button>
                         </div>
@@ -552,7 +601,7 @@
                                 </div>
                                 <p class="text-[11px] text-slate-400 mt-0.5">Harga sesudah PPN</p>
                             </div>
-                            <button onclick="openModal('Pelanggan - Paket Smart 100 (150 Mbps) + Kuota 25GB', 'Kec. Sooko')" class="block w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-center rounded-xl font-semibold transition duration-300 shadow-md text-sm hover:scale-[1.02]">
+                            <button onclick="openModal('Pelanggan - Paket Smart 100 (150 Mbps) + Kuota 25GB', 'Kec. Sooko')" class="btn-glow block w-full py-3.5 px-4 bg-emerald-600 text-white text-center rounded-xl font-semibold shadow-md text-sm">
                                 Saya Pilih Ini
                             </button>
                         </div>
@@ -588,7 +637,7 @@
                                 </div>
                                 <p class="text-[11px] text-slate-400 mt-0.5">Harga sesudah PPN</p>
                             </div>
-                            <button onclick="openModal('Pelanggan - Paket Smart 150 (200 Mbps) + Kuota 50GB', 'Kec. Sooko')" class="block w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-center rounded-xl font-semibold transition duration-300 shadow-md text-sm hover:scale-[1.02]">
+                            <button onclick="openModal('Pelanggan - Paket Smart 150 (200 Mbps) + Kuota 50GB', 'Kec. Sooko')" class="btn-glow block w-full py-3.5 px-4 bg-emerald-600 text-white text-center rounded-xl font-semibold shadow-md text-sm">
                                 Saya Pilih Ini
                             </button>
                         </div>
@@ -600,7 +649,7 @@
             <!-- ========================================== -->
             <!-- SECTION TAMBAHAN: XL SATU FWA (COMING SOON) -->
             <!-- ========================================== -->
-            <div id="fwa" class="bg-gradient-to-r from-slate-900 to-[#002dbb] rounded-3xl p-8 md:p-12 text-white shadow-xl relative overflow-hidden" data-aos="fade-up">
+            <div id="fwa" class="bg-gradient-to-r from-slate-900 to-[#002dbb] rounded-3xl p-8 md:p-12 text-white shadow-xl relative overflow-hidden card-hover" data-aos="fade-up">
                 <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
                 <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
                     <div class="max-w-xl">
@@ -618,7 +667,7 @@
                         </div>
                     </div>
                     <div class="w-full lg:w-auto text-center">
-                        <a href="https://wa.me/6285974511215?text=Halo%20Admin,%20saya%20tertarik%20dan%20ingin%20info%20lebih%20lanjut%20mengenai%20XL%20SATU%20FWA%20yang%20segera%20hadir%20di%20Mojokerto." target="_blank" class="inline-block bg-[#b2ff05] text-[#002dbb] px-8 py-4 rounded-2xl font-bold text-sm btn-glow hover:bg-white transition shadow-lg">
+                        <a href="https://wa.me/6285974511215?text=Halo%20Admin,%20saya%20tertarik%20dan%20ingin%20info%20lebih%20lanjut%20mengenai%20XL%20SATU%20FWA%20yang%20segera%20hadir%20di%20Mojokerto." target="_blank" class="inline-block bg-[#b2ff05] text-[#002dbb] px-8 py-4 rounded-2xl font-bold text-sm btn-glow transition shadow-lg">
                             <i class="fab fa-whatsapp text-lg mr-2"></i> Daftar / Tanya Info FWA
                         </a>
                         <p class="text-xs text-slate-400 mt-3">Dapatkan prioritas pemasangan saat launching!</p>
@@ -673,7 +722,7 @@
                             <li>Wisma Sooko Indah</li>
                         </ul>
                     </div>
-                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Sooko', 'Kec. Sooko')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Sooko', 'Kec. Sooko')" class="btn-glow w-full py-2.5 bg-[#002dbb] text-white font-semibold rounded-xl text-xs transition shadow">
                         Cek Lokasi Sooko
                     </button>
                 </div>
@@ -699,7 +748,7 @@
                             <li>Perum Puri Majapahit</li>
                         </ul>
                     </div>
-                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Puri', 'Kec. Puri')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Puri', 'Kec. Puri')" class="btn-glow w-full py-2.5 bg-[#002dbb] text-white font-semibold rounded-xl text-xs transition shadow">
                         Cek Lokasi Puri
                     </button>
                 </div>
@@ -720,7 +769,7 @@
                             <li>Taman Majapahit Firdaus Regency</li>
                         </ul>
                     </div>
-                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Mojoanyar', 'Kec. Mojoanyar')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Mojoanyar', 'Kec. Mojoanyar')" class="btn-glow w-full py-2.5 bg-[#002dbb] text-white font-semibold rounded-xl text-xs transition shadow">
                         Cek Lokasi Mojoanyar
                     </button>
                 </div>
@@ -741,7 +790,7 @@
                             <li>Perum Graha Bhinneka Fortuna</li>
                         </ul>
                     </div>
-                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Bangsal', 'Kec. Bangsal')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Bangsal', 'Kec. Bangsal')" class="btn-glow w-full py-2.5 bg-[#002dbb] text-white font-semibold rounded-xl text-xs transition shadow">
                         Cek Lokasi Bangsal
                     </button>
                 </div>
@@ -774,7 +823,7 @@
                             <li>Perum Zian Istana Residence</li>
                         </ul>
                     </div>
-                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Mojosari', 'Kec. Mojosari')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Mojosari', 'Kec. Mojosari')" class="btn-glow w-full py-2.5 bg-[#002dbb] text-white font-semibold rounded-xl text-xs transition shadow">
                         Cek Lokasi Mojosari
                     </button>
                 </div>
@@ -794,7 +843,7 @@
                             <li>Perum Permata Pesanggrahan</li>
                         </ul>
                     </div>
-                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Kutorejo', 'Kec. Kutorejo')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Kutorejo', 'Kec. Kutorejo')" class="btn-glow w-full py-2.5 bg-[#002dbb] text-white font-semibold rounded-xl text-xs transition shadow">
                         Cek Lokasi Kutorejo
                     </button>
                 </div>
@@ -819,7 +868,7 @@
                             <li>Wisma Pungging Permai</li>
                         </ul>
                     </div>
-                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Pungging', 'Kec. Pungging')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Pungging', 'Kec. Pungging')" class="btn-glow w-full py-2.5 bg-[#002dbb] text-white font-semibold rounded-xl text-xs transition shadow">
                         Cek Lokasi Pungging
                     </button>
                 </div>
@@ -842,7 +891,7 @@
                             <li>Desa Watesnegoro</li>
                         </ul>
                     </div>
-                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Ngoro', 'Kec. Ngoro')" class="w-full py-2.5 bg-[#002dbb] hover:bg-blue-800 text-white font-semibold rounded-xl text-xs transition shadow">
+                    <button onclick="openModal('Pelanggan - Cek Lokasi Kecamatan Ngoro', 'Kec. Ngoro')" class="btn-glow w-full py-2.5 bg-[#002dbb] text-white font-semibold rounded-xl text-xs transition shadow">
                         Cek Lokasi Ngoro
                     </button>
                 </div>
@@ -951,7 +1000,7 @@
                     <h2 class="text-3xl md:text-4xl font-bold text-[#002dbb] mb-6">Bergabung Menjadi Bagian dari Kami</h2>
                     <p class="text-slate-600 mb-6 text-lg">XL Satu Mojokerto terus berkembang dan kami mencari talenta-talenta terbaik untuk maju bersama kami melayani masyarakat.</p>
                     
-                    <div class="bg-slate-50 border-l-4 border-[#b2ff05] p-6 rounded-r-xl mb-6 shadow-sm">
+                    <div class="bg-slate-50 border-l-4 border-[#b2ff05] p-6 rounded-r-xl mb-6 shadow-sm card-hover">
                         <h4 class="font-bold text-lg text-slate-800 mb-2">Posisi Tersedia: Direct Sales Agent (DSA)</h4>
                         <ul class="list-disc list-inside text-slate-600 space-y-1">
                             <li>Pria/Wanita maksimal 45 tahun</li>
@@ -962,7 +1011,7 @@
                     </div>
                     
                     <!-- Tombol Kandidat Pelamar -->
-                    <button onclick="openModal('Kandidat - Lamaran Direct Sales Agent (DSA)')" class="inline-block px-8 py-3 bg-[#002dbb] text-white rounded-full font-medium hover:bg-blue-800 transition shadow-lg hover:scale-105">
+                    <button onclick="openModal('Kandidat - Lamaran Direct Sales Agent (DSA)')" class="btn-glow inline-block px-8 py-3 bg-[#002dbb] text-white rounded-full font-medium shadow-lg">
                         <i class="fas fa-paper-plane mr-2"></i> Kirim Lamaran & Lanjut ke WhatsApp
                     </button>
                 </div>
@@ -971,7 +1020,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- MODAL POPUP FORM (DEPENDENT DROPDOWN)     -->
+    <!-- MODAL POPUP FORM (DEPENDENT DROPDOWN)      -->
     <!-- ========================================== -->
     <div id="leadModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
         <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto animate-[fadeIn_0.3s_ease-out]">
@@ -1012,12 +1061,27 @@
                     <input type="text" value="KAB. MOJOKERTO" disabled class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-100 text-slate-600 font-semibold cursor-not-allowed">
                 </div>
 
-                <div class="mb-6">
+                <!-- Input Detail Alamat -->
+                <div class="mb-4">
                     <label id="labelKeterangan" class="block text-sm font-semibold text-slate-700 mb-1">Detail Alamat / Nomor Rumah</label>
                     <textarea id="inputKeterangan" rows="2" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="Contoh: RT 02 / RW 01, No. 45..."></textarea>
                 </div>
 
-                <button type="submit" id="submitBtn" class="w-full py-3.5 bg-[#002dbb] hover:bg-blue-800 text-white font-bold rounded-xl transition shadow-lg flex items-center justify-center gap-2 hover:scale-[1.02]">
+                <!-- Input Tambahan: Warna Rumah / Blok Rumah -->
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Warna Rumah / Blok Rumah</label>
+                    <input type="text" id="inputWarnaBlok" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#002dbb] focus:outline-none transition" placeholder="Contoh: Blok B3 No. 12, Cat Rumah Warna Abu-abu / Pagar Hitam">
+                </div>
+
+                <!-- Tombol GPS Gratis -->
+                <div class="mb-6">
+                    <button type="button" onclick="getGPSLocation()" class="w-full py-2.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold rounded-xl border border-emerald-200 transition flex items-center justify-center gap-2 shadow-sm text-xs">
+                        <i class="fas fa-crosshairs text-emerald-600"></i> Ambil Titik Koordinat GPS (Sharelock)
+                    </button>
+                    <p id="gpsStatus" class="text-[11px] text-slate-400 mt-1 text-center">Klik tombol di atas agar teknisi mudah melacak titik GPS rumah Anda.</p>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-glow w-full py-3.5 bg-[#002dbb] text-white font-bold rounded-xl transition shadow-lg flex items-center justify-center gap-2">
                     <i class="fab fa-whatsapp text-xl"></i> Kirim & Lanjut ke WhatsApp
                 </button>
             </form>
@@ -1062,7 +1126,7 @@
             <!-- TSC -->
             <div class="max-w-md mx-auto mb-8" data-aos="zoom-in" data-aos-duration="800">
                 <div class="bg-white rounded-3xl p-8 shadow-lg border border-slate-100 text-center card-hover">
-                    <div class="w-20 h-20 bg-slate-100 rounded-full mx-auto mb-4 border-4 border-[#002dbb] flex items-center justify-center text-[#002dbb] text-2xl font-bold">
+                    <div class="w-20 h-20 bg-slate-100 rounded-full mx-auto mb-4 border-4 border-[#002dbb] flex items-center justify-center text-[#002dbb] text-2xl font-bold shadow-inner">
                         <i class="fas fa-user-tie"></i>
                     </div>
                     <h3 class="text-xl font-bold text-slate-800">Uaisy Alqurni</h3>
@@ -1144,15 +1208,15 @@
                 <p class="text-slate-500 text-sm mb-6">Aktivitas dan keseruan tim di area Mojokerto</p>
 
                 <div class="flex flex-wrap justify-center gap-3 mb-10">
-                    <button onclick="filterGallery('all')" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-[#002dbb] text-white shadow-md transition hover:scale-105">Semua</button>
-                    <button onclick="filterGallery('briefing')" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition hover:scale-105">Briefing Tim</button>
-                    <button onclick="filterGallery('booth')" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition hover:scale-105">Booth Event</button>
-                    <button onclick="filterGallery('kanvasing')" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition hover:scale-105">Kanvasing</button>
+                    <button onclick="filterGallery('all', event)" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-[#002dbb] text-white shadow-md transition hover:scale-105">Semua</button>
+                    <button onclick="filterGallery('briefing', event)" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition hover:scale-105">Briefing Tim</button>
+                    <button onclick="filterGallery('booth', event)" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition hover:scale-105">Booth Event</button>
+                    <button onclick="filterGallery('kanvasing', event)" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition hover:scale-105">Kanvasing</button>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="gallery-container">
-                <div class="gallery-item briefing group relative rounded-2xl overflow-hidden shadow-md aspect-[4/3]" data-aos="zoom-in-up" data-aos-delay="100">
+                <div class="gallery-item briefing group relative rounded-2xl overflow-hidden shadow-md aspect-[4/3] card-hover" data-aos="zoom-in-up" data-aos-delay="100">
                     <img src="https://placehold.co/500x375/e2e8f0/1e293b?text=Briefing+Tim" alt="Briefing Tim" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                     <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-2 group-hover:translate-y-0 transition">
                         <p class="text-white font-bold text-sm">Briefing Pagi Tim</p>
@@ -1160,7 +1224,7 @@
                     </div>
                 </div>
 
-                <div class="gallery-item booth group relative rounded-2xl overflow-hidden shadow-md aspect-[4/3]" data-aos="zoom-in-up" data-aos-delay="200">
+                <div class="gallery-item booth group relative rounded-2xl overflow-hidden shadow-md aspect-[4/3] card-hover" data-aos="zoom-in-up" data-aos-delay="200">
                     <img src="https://placehold.co/500x375/e2e8f0/1e293b?text=Booth+Event" alt="Booth Event" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                     <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-2 group-hover:translate-y-0 transition">
                         <p class="text-white font-bold text-sm">Pameran / Booth Event</p>
@@ -1168,7 +1232,7 @@
                     </div>
                 </div>
 
-                <div class="gallery-item kanvasing group relative rounded-2xl overflow-hidden shadow-md aspect-[4/3]" data-aos="zoom-in-up" data-aos-delay="300">
+                <div class="gallery-item kanvasing group relative rounded-2xl overflow-hidden shadow-md aspect-[4/3] card-hover" data-aos="zoom-in-up" data-aos-delay="300">
                     <img src="https://placehold.co/500x375/e2e8f0/1e293b?text=Kanvasing" alt="Kanvasing" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                     <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-2 group-hover:translate-y-0 transition">
                         <p class="text-white font-bold text-sm">Kanvasing Perumahan</p>
@@ -1252,10 +1316,8 @@
         let currentKategori = "";
         let qrGenerated = false;
         
-        // Link GitHub Pages Resmi Anda
         const LIVE_URL = "https://xlsatumojokerto618-ux.github.io/xlsatumojokerto/";
 
-        // Data Cluster Sesuai Tabel Excel Resmi
         const clusterData = {
             "Kec. Sooko": [
                 "Desa Gemekan", "Desa Jampirogo", "Desa Japan", "Graha Japan Asri", 
@@ -1327,7 +1389,6 @@
             }));
         });
 
-        // Fungsi Toggle Menu Mobile saat Bagikan Web diklik
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             const btn = document.getElementById('mobile-menu-button');
@@ -1337,7 +1398,6 @@
             icon.classList.add('fa-bars');
         }
 
-        // Fungsi Live Search untuk Kartu Cluster Area
         function filterCluster() {
             const input = document.getElementById('searchCluster').value.toLowerCase();
             const cards = document.querySelectorAll('.cluster-card');
@@ -1361,7 +1421,6 @@
             }
         }
 
-        // Buka Modal Formulir dengan Kecamatan Default yang Dipilih
         function openModal(kategori, defaultKec = '') {
             currentKategori = kategori;
             const isPelamar = kategori.includes('Kandidat');
@@ -1403,7 +1462,6 @@
             document.getElementById('leadModal').classList.remove('hidden');
         }
 
-        // Update Pilihan Desa / Perumahan secara Otomatis Berdasarkan Kecamatan yang Dipilih
         function updateDesaOptions() {
             const selectedKec = document.getElementById('inputKecamatan').value;
             const selectDesa = document.getElementById('inputDesa');
@@ -1429,6 +1487,48 @@
             }
         }
 
+        // Fungsi Otomatis Mengambil Koordinat GPS Gratis via Browser
+        function getGPSLocation() {
+            const statusText = document.getElementById('gpsStatus');
+            const textarea = document.getElementById('inputKeterangan');
+
+            if (!navigator.geolocation) {
+                statusText.innerHTML = '<span class="text-red-500">❌ Geolocation tidak didukung oleh browser Anda.</span>';
+                return;
+            }
+
+            statusText.innerHTML = '<span class="text-blue-600 animate-pulse">⏳ Sedang mendeteksi titik koordinat GPS perangkat Anda...</span>';
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const mapsLink = `https://maps.google.com/?q=${lat},${lng}`;
+                    
+                    const currentVal = textarea.value.trim();
+                    textarea.value = currentVal ? `${currentVal} | Sharelock GPS: ${mapsLink}` : `Sharelock GPS: ${mapsLink}`;
+                    
+                    statusText.innerHTML = '<span class="text-emerald-600 font-semibold">✅ Koordinat GPS berhasil ditambahkan ke detail alamat!</span>';
+                },
+                (error) => {
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            statusText.innerHTML = '<span class="text-red-500">❌ Izin lokasi ditolak. Harap aktifkan izin lokasi browser.</span>';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            statusText.innerHTML = '<span class="text-red-500">❌ Informasi lokasi tidak tersedia.</span>';
+                            break;
+                        case error.TIMEOUT:
+                            statusText.innerHTML = '<span class="text-red-500">❌ Waktu permintaan lokasi habis.</span>';
+                            break;
+                        default:
+                            statusText.innerHTML = '<span class="text-red-500">❌ Gagal mendeteksi lokasi.</span>';
+                    }
+                },
+                { timeout: 10000, enableHighAccuracy: true }
+            );
+        }
+
         function closeModal() {
             document.getElementById('leadModal').classList.add('hidden');
         }
@@ -1441,6 +1541,7 @@
             const kecamatan = document.getElementById('inputKecamatan').value;
             const desa = document.getElementById('inputDesa').value;
             const keterangan = document.getElementById('inputKeterangan').value;
+            const warnaBlok = document.getElementById('inputWarnaBlok').value;
             
             const isPelamar = currentKategori.includes('Kandidat');
             let pesan = "";
@@ -1460,7 +1561,8 @@
                         `📞 *No WA:* ${whatsapp}\n` +
                         `📍 *Kecamatan:* ${kecamatan}\n` +
                         `🏘️ *Desa/Perumahan:* ${desa}\n` +
-                        `🏠 *Detail Alamat:* ${keterangan}\n\n` +
+                        `🏠 *Detail Alamat / No Rumah:* ${keterangan}\n` +
+                        `🎨 *Warna Rumah / Blok:* ${warnaBlok}\n\n` +
                         `_Halo Admin, mohon bantuan untuk pengecekan jaringan di lokasi saya. Terima kasih!_`;
             }
             
@@ -1470,7 +1572,6 @@
             closeModal();
         }
 
-        // Fungsi Share & QR Code menggunakan LIVE_URL
         function openShareModal() {
             document.getElementById('shareModal').classList.remove('hidden');
             
@@ -1503,7 +1604,7 @@
             });
         }
 
-        function filterGallery(category) {
+        function filterGallery(category, event) {
             const items = document.querySelectorAll('.gallery-item');
             const buttons = document.querySelectorAll('.gallery-filter-btn');
 
