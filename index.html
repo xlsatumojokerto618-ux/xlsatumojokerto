@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <!-- PANGGIL FILE CSS TERPISAH DI SINI -->
+    <!-- PANGGIL FILE CSS TERPISAH -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-slate-50 text-slate-800 overflow-x-hidden antialiased">
@@ -843,7 +843,7 @@
         </div>
     </div>
 
-    <!-- MODAL FWA (FIXED WIRELESS ACCESS) -->
+    <!-- MODAL FWA -->
     <div id="fwaModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
         <div class="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl relative modal-fade-in">
             <button onclick="closeFwaModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
@@ -873,7 +873,7 @@
         </div>
     </div>
 
-    <!-- MODAL LOWONGAN KERJA (KARIR) -->
+    <!-- MODAL KARIR -->
     <div id="karirModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-fade-in">
             <button onclick="closeKarirModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
@@ -899,14 +899,14 @@
             </div>
             
             <div class="text-center">
-                <button onclick="closeKarirModal(); openModal('Kandidat - Lamaran Direct Sales Agent (DSA)')" class="btn-glow inline-block px-8 py-3.5 bg-[#002dbb] text-white rounded-xl font-semibold shadow-sm text-sm">
+                <button onclick="closeKarirModal(); openModal('Kandidat - Direct Sales Agent (DSA)')" class="btn-glow inline-block px-8 py-3.5 bg-[#002dbb] text-white rounded-xl font-semibold shadow-sm text-sm">
                     <i class="fas fa-paper-plane mr-2"></i> Kirim Lamaran Sekarang
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DOKUMENTASI KEGIATAN LAPANGAN -->
+    <!-- MODAL DOKUMENTASI -->
     <div id="dokumentasiModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
         <div class="bg-white rounded-3xl max-w-4xl w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-fade-in">
             <button onclick="closeDokumentasiModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
@@ -955,7 +955,7 @@
         </div>
     </div>
 
-    <!-- MODAL TESTIMONI PELANGGAN -->
+    <!-- MODAL TESTIMONI -->
     <div id="testimoniModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
         <div class="bg-white rounded-3xl max-w-4xl w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-fade-in">
             <button onclick="closeTestimoniModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
@@ -1036,7 +1036,7 @@
         </div>
     </div>
 
-    <!-- MODAL STRUKTUR ORGANISASI -->
+    <!-- MODAL STRUKTUR -->
     <div id="strukturModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
         <div class="bg-white rounded-3xl max-w-4xl w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-fade-in">
             <button onclick="closeStrukturModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl transition">
@@ -1221,6 +1221,7 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- PANGGIL FILE JAVASCRIPT TERPISAH -->
     <script src="script.js"></script>
 </body>
 </html>
