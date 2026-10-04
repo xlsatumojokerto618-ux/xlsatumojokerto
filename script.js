@@ -1,7 +1,7 @@
 let currentKategori = "";
 let qrGenerated = false;
 
-const LIVE_URL = "https://xlsatumojokerto618-ux.github.io/xlsatumojokerto/";
+const LIVE_URL = "https://xlsatumojokerto618-ux.github.io/xlhomemojokerto/";
 
 const timSalesData = {
     "brian": ["Aditya Permadi", "Andhika Duta Nusantara", "Andika Wisnu Putra Pradana", "Bagas Tri Kusumawardana", "Gilang Ardianta Mahesa", "Indah Novitasari", "Moh. Heru Aprijanto", "Rahmad Hidayat", "Rian Pratama", "Risma Septiowati", "Rizky Cahya Adhitama", "Rizky Faza Ramadhan", "Yogsy Tri Pamungkas"],
@@ -283,6 +283,11 @@ async function submitForm(e) {
     const pendidikan = document.getElementById('inputPendidikan').value;
     const pengalamanSales = document.getElementById('inputPengalamanSales').value;
     
+    // Pastikan elemen input dengan id 'inputDomisili' dan 'inputKendaraan' ada di HTML Anda, 
+    // atau sesuaikan dengan ID yang benar jika menggunakan input lain.
+    const domisili = document.getElementById('inputDomisili') ? document.getElementById('inputDomisili').value : '-';
+    const kendaraan = document.getElementById('inputKendaraanPribadi') ? document.getElementById('inputKendaraanPribadi').value : '-';
+    
     const isPelamar = currentKategori.includes('Kandidat');
     const isGangguan = currentKategori.includes('Gangguan');
     
@@ -322,6 +327,8 @@ async function submitForm(e) {
                 `👤 *Nama:* ${nama}\n` +
                 `📞 *No WA:* ${whatsapp}\n` +
                 `🎓 *Pendidikan Terakhir:* ${pendidikan}\n` +
+                `📍 *Domisili:* ${domisili}\n` +
+                `🏍️ *Memiliki kendaraan pribadi:* ${kendaraan}\n` +
                 `💼 *Pengalaman Sales/Marketing:* ${pengalamanSales}\n` +
                 `📝 *Keterangan Tambahan:* ${alamat}\n\n` +
                 `_Halo Admin, saya berminat bergabung sebagai DSA. Terima kasih!_`;
@@ -337,7 +344,7 @@ async function submitForm(e) {
                 `_Halo Admin, mohon bantuan cek lokasi. Terima kasih!_`;
     }
     
-    window.open(`https://wa.me/${targetWa}?text=${encodeURIComponent(pesan)}`, '_blank');
+    window.open(`https://wa.me/\({targetWa}?text=\){encodeURIComponent(pesan)}`, '_blank');
     form.reset();
     closeModal();
 }
@@ -348,7 +355,7 @@ function openShareModal() {
         new QRCode(document.getElementById("qrcode"), { text: LIVE_URL, width: 150, height: 150 });
         qrGenerated = true;
     }
-    document.getElementById('shareWaBtn').href = `https://wa.me/?text=${encodeURIComponent("Cek info paket internet XL Satu Mojokerto di sini:\n\n" + LIVE_URL)}`;
+    document.getElementById('shareWaBtn').href = `https://wa.me/?text=${encodeURIComponent("Cek info paket internet XL HOME Mojokerto di sini:\n\n" + LIVE_URL)}`;
 }
 function closeShareModal() { document.getElementById('shareModal').classList.add('hidden'); }
 function copyWebsiteLink() {
