@@ -1,7 +1,7 @@
 let currentKategori = "";
 let qrGenerated = false;
 
-const LIVE_URL = "https://xlsatumojokerto618-ux.github.io/xlsatumojokerto/";
+const LIVE_URL = "https://xlsatumojokerto618-ux.github.io/xlhomemojokerto/";
 
 const timSalesData = {
     "brian": ["Aditya Permadi", "Andhika Duta Nusantara", "Andika Wisnu Putra Pradana", "Bagas Tri Kusumawardana", "Gilang Ardianta Mahesa", "Indah Novitasari", "Moh. Heru Aprijanto", "Rahmad Hidayat", "Rian Pratama", "Risma Septiowati", "Rizky Cahya Adhitama", "Rizky Faza Ramadhan", "Yogsy Tri Pamungkas"],
@@ -348,7 +348,7 @@ function openShareModal() {
         new QRCode(document.getElementById("qrcode"), { text: LIVE_URL, width: 150, height: 150 });
         qrGenerated = true;
     }
-    document.getElementById('shareWaBtn').href = `https://wa.me/?text=${encodeURIComponent("Cek info paket internet XL Satu Mojokerto di sini:\n\n" + LIVE_URL)}`;
+    document.getElementById('shareWaBtn').href = `https://wa.me/?text=${encodeURIComponent("Cek info paket internet XL HOME Mojokerto di sini:\n\n" + LIVE_URL)}`;
 }
 function closeShareModal() { document.getElementById('shareModal').classList.add('hidden'); }
 function copyWebsiteLink() {
